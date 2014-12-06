@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+<service-builder 
+  package-path="mil.army.hrc.ikrome.cybertools.dataaccess">
+  <author>rowebs</author>
+  <namespace>cybertools</namespace>
+
+  <entity name="ChatResponse" local-service="true" remote-service="true">
+
+    <!-- PK fields -->
+
+    <column name="responseId" type="long" primary="true" />
+
+    <!-- Audit fields -->
+
+    <column name="companyId" type="long" />
+    <column name="createdByUserId" type="long" />
+    <column name="createdByUserName" type="String" />
+    <column name="createDate" type="Date" />
+    <column name="modifiedDate" type="Date" />
+    <column name="modifiedByUserId" type="long" />
+    <column name="modifiedByUserName" type="String" />
+
+    <!-- Other fields -->
+
+    <column name="title" type="String" />
+    <column name="firstContent" type="String" />
+    <column name="secondContent" type="String" />
+    <column name="viewCount" type="long" />		
+    <column name="viewedDate" type="Date" />
+		
+    <!-- Order -->
+
+    <order by="asc">
+      <order-column name="title" />			
+    </order>
+
+    <!-- Finder methods -->
+
+    <finder name="modifiedDateLessThan" return-type="Collection">
+      <finder-column name="modifiedDate" comparator="&lt;=" />
+    </finder>
+    <finder name="LastViewDateOlderThan" return-type="Collection">
+      <finder-column name="viewedDate" comparator="&lt;=" />
+    </finder>
+		 	
+    <finder name="contentLike" return-type="Collection">
+      <finder-column name="firstContent" comparator="LIKE" />
+      <finder-column name="secondContent" comparator="LIKE" />
+    </finder>
+  </entity>
+  <entity name="CyberToolsProperty" local-service="true" remote-service="true">
+
+    <!-- PK fields -->
+
+    <column name="propertyName" type="String" primary="true" />
+
+    <!-- Audit fields -->
+
+    <column name="companyId" type="long" />
+    <column name="createDate" type="Date" />
+    <column name="modifiedDate" type="Date" />
+    <column name="modifiedByUserId" type="long" />
+		
+
+    <!-- Other fields -->
+
+    <column name="propertyValue" type="String" />
+        
+    <!-- Order -->
+
+    <order by="asc">
+      <order-column name="propertyName" />
+    </order>
+
+    <!-- Finder methods -->
+
+       
+       
+  </entity>
+  <entity name="MOSKeyword" local-service="true" remote-service="true">
+    <column name="keyword" type="String" primary ="true" />
+    	
+    <!-- Audit fields -->
+	
+    <order by="asc">
+      <order-column name="keyword" />
+    </order>
+  </entity>
+    
+  <entity name="MOSData" local-service="true" remote-service="true">
+
+    <!-- PK fields -->
+    <column name="mosDataId" type="long" primary="true" />
+    <column name="mosId" type="String" />
+
+    <!-- Audit fields -->
+
+    <column name="keywords" type="String" />
+    <column name="createDate" type="Date" />
+    <column name="modifiedDate" type="Date" />
+    <column name="modifiedByUserId" type="long" />
+    <column name="companyId" type="long" />
+		
+
+    <!-- Other fields -->
+
+    <column name="title" type="String" />
+    <column name="notes" type="String" />
+    <column name="term" type="int" />
+    <column name="clearance" type="String" />
+    <column name="citizenship" type="String" />
+    <column name="vision" type="String" />
+    <column name="driversLicense" type="String" />
+    <column name="gender" type="String" />
+    <column name="ait" type="String" />
+    <column name="length" type="String" />
+    <column name="linkData" type="String" />
+       
+    <!-- Test Scores -->
+    <column name="gt" type="int" />
+    <column name="gm" type="int" />
+    <column name="el" type="int" />
+    <column name="cl" type="int" />
+    <column name="mm" type="int" />
+    <column name="sc" type="int" />
+    <column name="co" type="int" />
+    <column name="fa" type="int" /> 
+    <column name="ofscore" type="int" />
+    <column name="st" type="int" />
+       
+        
+    <!-- Order -->
+
+    <order by="asc">
+      <order-column name="mosId" />
+    </order>
+
+    <!-- Finder methods -->
+    <finder name="Category" return-type="Collection">
+      <finder-column name="keywords" />
+    </finder>
+    <finder name="name" return-type="MOSData">
+      <finder-column name="mosId" />
+    </finder>
+       
+       
+  </entity>
+    
+  <entity name="ReferenceArea" local-service="true" remote-service="true">
+    <column name="referenceAreaId" primary="true" type="long"></column>
+    <column name="name" type="String"></column>
+    <order>
+      <order-column name="name" order-by="asc"></order-column>
+    </order>
+    <finder name="RefName" return-type="Collection">
+      <finder-column name="name" />
+    </finder>
+  </entity>
+  <entity name="ReferenceInfo" local-service="true" remote-service="true">
+    <column name="referenceInfoId" type="long" primary="true"></column>
+    <column name="referenceAreaId" type="long"></column>
+    <column name="title" type="String"></column>
+    <column name="createdDate" type="Date"></column>
+    <column name="createdBy" type="String"></column>
+    <column name="lastModifiedDate" type="Date"></column>
+    <column name="lastModifiedBy" type="String"></column>
+    <column name="documentId" type="String"></column>
+    <column name="data" type="String"></column>
+    <column name="viewCount" type="long"></column>
+    <column name="lastViewDate" type="Date"></column>
+    <order by="asc">            
+      <order-column name="title"></order-column>
+      <order-column name="referenceAreaId"></order-column>
+    </order>
+    <finder name="AreaId" return-type="Collection">
+      <finder-column name="referenceAreaId"/>
+    </finder>
+    <finder name="LastViewDateOlderThan" return-type="Collection">
+      <finder-column name="lastViewDate" comparator="&lt;=" />
+    </finder>
+  </entity>
+    
+  <entity name="GirthEntry" table="HEIGHT_WEIGHT_VIEW" local-service="true" remote-service="true" 
+            data-source="lemaDataSource" session-factory="lemaSessionFactory"
+            tx-manager="lemaTransactionManager">
+
+    <!-- PK fields -->
+             
+    <column name="Height" type="int" primary="true" />
+
+    <column name="MaxWeight" type="int" />
+    <column name="NPSMaxWeight" type="int" />
+    <column name="Sex" type="String" primary="true"/>
+    <column name="FromAge" type="int" primary="true" />
+    <column name="ToAge" type="int"  />
+    <column name="MinWeight" type="int" />
+    <column name="NPSMinWeight" type="int" />
+    <column name="BFM_PERCENT" type="int" />
+    <column name="NPS_BFM_PERCENT" type="int" />
+
+    <order by="asc">
+      <order-column name="Height" />
+    </order>
+
+    <!-- Finder methods -->
+    <finder name="ageheightg" return-type="Collection">
+      <finder-column name="Height" />
+      <finder-column name="FromAge" comparator="&lt;="/>
+      <finder-column name="ToAge" comparator="&gt;="/>
+      <finder-column name="Sex" />
+    </finder>
+  </entity>    
+    
+  <!-- We only use local service here, as we only ever read. -->
+  <entity name="BasePayEntry" local-service="true" remote-service="false" data-source="lemaDataSource" session-factory="lemaSessionFactory" tx-manager="lemaTransactionManager" table="BASE_PAY_VIEW">    
+    <column name="rank" type="String" primary="true"/>
+    <column name="armyType" type="String" primary="true" />
+    <column name="trainingType" type="String" primary="true" />
+    <column name="compensation" type="double" />
+    <column name="yearsActive" type="int" primary="true" />
+    	
+    <order by="asc">
+      <order-column name="armyType" order-by="asc" />
+      <order-column name="trainingType" order-by="desc" />
+    </order>
+    	
+    <finder name="RankAndYis" return-type="Collection">
+      <finder-column name="rank" />    		    	
+      <finder-column name="yearsActive" />
+    </finder> 
+  </entity>
+</service-builder>

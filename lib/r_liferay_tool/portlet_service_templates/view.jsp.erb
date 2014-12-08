@@ -18,31 +18,25 @@
   keyProperty="<%= template_variables['primary_key'] %>"
   modelVar="item"
   >
-<% @template_variables['columns'].each do |item| %>
+<% @template_variables['columns'].each do |column_name, column_value| %>
     <liferay-ui:search-container-column-text
-    name="<%=  %>"
-    property="raviName"
+    name="<%=column_name  %>"
+    property="<%=column_name %>"
     />
 <% end %>
-   
-    <liferay-ui:search-container-column-text
-    name="Quantity"
-    property="###quantity###"
-    />
-
-    <liferay-ui:search-container-column-text
-    name="Description"
-    property="jamieDescription"
-    />
-    <liferay-ui:search-container-column-text
+      <liferay-ui:search-container-column-text
     name="actions"
     >
       <liferay-ui:icon-menu >
         <portlet:renderURL var="updateItemURL">
           <portlet:param name="itemId" value="${item.<%= template_variables['primary_key'] %>}" />
-          <portlet:param name="itemName" value="${item.raviName}" />
-          <portlet:param name="itemDescription" value="${item.jamieDescription}" />
-          <portlet:param name="itemQuantity" value="${item.###quantity###}" />
+<% @template_variables['columns'].each do |column_name, column_value| %>
+    <liferay-ui:search-container-column-text
+    name="<%=column_name  %>"
+    property="<%=column_name %>"
+    />
+     <portlet:param name="<%=column_name%>" value="${item.<%=column_name%>}" />
+<% end %>
           <portlet:param name="backURL" value="${currentURL}" />
           <portlet:param name="jspPage" value="/edit.jsp" />
         </portlet:renderURL>

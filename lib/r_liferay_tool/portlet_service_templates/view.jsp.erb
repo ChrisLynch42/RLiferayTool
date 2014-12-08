@@ -18,10 +18,13 @@
   keyProperty="<%= template_variables['primary_key'] %>"
   modelVar="item"
   >
+<% @template_variables['columns'].each do |item| %>
     <liferay-ui:search-container-column-text
-    name="name"
+    name="<%=  %>"
     property="raviName"
     />
+<% end %>
+   
     <liferay-ui:search-container-column-text
     name="Quantity"
     property="###quantity###"

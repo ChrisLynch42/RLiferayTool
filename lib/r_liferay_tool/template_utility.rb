@@ -5,7 +5,7 @@ module RLiferayTool
     attr_accessor :content
 
 
-    def initialize(template_path, target_name, target_directory, template_variables )
+    def initialize(template_path, target_directory, target_name, template_variables )
       run_erb(template_path, target_name, target_directory, template_variables)
     end
 

@@ -49,7 +49,7 @@ module RLiferayTool
       read_service = ReadService.new(TestFiles::SERVICE_XML)
       @template_variables = read_service.entities[read_service.entities.keys[0]]
       @template_variables['project_name'] = 'test'
-      @test_object = TemplateUtility.new(TestFiles::VIEW_JSP, @target_name , TestFiles::TEMP_DIR, @template_variables)
+      @test_object = TemplateUtility.new(TestFiles::VIEW_JSP, TestFiles::TEMP_DIR, @target_name , @template_variables)
       @test_class_constant = TemplateUtility
     end
 

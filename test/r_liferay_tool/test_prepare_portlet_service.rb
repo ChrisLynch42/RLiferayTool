@@ -1,37 +1,52 @@
 require 'minitest/autorun'
 require_relative '../test_helper'
 require_relative '../../lib/r_liferay_tool/prepare_portlet_service'
-require_relative '../../lib/r_liferay_tool/xml_utility'
+require_relative '../../lib/r_liferay_tool/read_service'
 
 module RLiferayTool
   class TestPreparePortletService < Minitest::Test
 
     def setup
-      FileUtils.copy_file(TestFiles::PORTLET_XML,TestFiles::TEMP_PORTLET_XML)
-      FileUtils.copy_file(TestFiles::PLUGIN_PACKAGE_FILE,TestFiles::TEMP_PLUGIN_PACKAGE_FILE)
-      @test_object = PreparePortletService.new(TestFiles::TEMP_PORTLET_XML, TestFiles::TEMP_PLUGIN_PACKAGE_FILE,'test','test.subtest')
-      @test_class_constant = PreparePortletService
+      clean_up
+      build_up
     end
 
     def teardown
-      FileUtils.remove(TestFiles::TEMP_PORTLET_XML)
-      FileUtils.remove(TestFiles::TEMP_PLUGIN_PACKAGE_FILE)
-
+      clean_up
     end
 
     def test_update_portlet_xml_content
-      portal_class_node = @test_object.xml_utility.xml_content.at_xpath('/portlet-app/portlet/portlet-class')
-      assert_equal(@test_object.portlet_class_content,portal_class_node.inner_html,"Portal-class node has the wrong inner content")
-      assert_equal(true,File.exist?(TestFiles::TEMP_PORTLET_XML),"XML content file missing.")
-      xml_content = File.read(TestFiles::TEMP_PORTLET_XML)
-      assert_equal(true,xml_content.include?(@test_object.portlet_class_content),"XML file content was not updated.")
+      assert_equal(true,File.exist?(TestFiles::TEMP_PORTLET_XML),"Portlet.xml file is missing.")
+      portlet_xml_content = File.read(TestFiles::TEMP_PORTLET_XML)
+      assert_equal(true,portlet_xml_content.include?("mil.army.hrc.ikrome.#{@template_variables['project_name']}"),"Portlet xml file content was not updated.")
     end
 
     def test_update_plugin_package_properties
       assert_equal(true,File.exist?(TestFiles::TEMP_PLUGIN_PACKAGE_FILE),"Plugin properites file is missing.")
       properties_content = File.read(TestFiles::TEMP_PLUGIN_PACKAGE_FILE)
-      assert_equal(true,properties_content.include?(@test_object.plugin_package_properties_text),"Plugin properties file content was not updated.")
+      assert_equal(true,properties_content.include?("name=#{@template_variables['project_name']}"),"Plugin properties file content was not updated.")
     end
 
+
+
+    private
+
+    def build_up
+      @target_name = 'test_view.jsp'
+      @target_file_name = TestFiles::TEMP_DIR + '/' + @target_name
+      read_service = ReadService.new(TestFiles::SERVICE_XML)
+      @template_variables = read_service.entities[read_service.entities.keys[0]]
+      @template_variables['project_name'] = 'test'
+      @template_variables['project_version'] = '1.00.000'
+      @test_object = PreparePortletService.new(TestFiles::TEMPLATE_DIR, TestFiles::TEMP_DIR , @template_variables)
+      @test_class_constant = PreparePortletService
+    end
+
+
+    def clean_up
+      Dir[TestFiles::TEMP_DIR + '/*'].each { | file_name |
+        File.delete(file_name)
+      }
+    end
   end
 end

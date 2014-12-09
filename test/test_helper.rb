@@ -1,6 +1,10 @@
 class TestFiles
 
   TEMP_DIR = './test/temp'
+
+  TEMPLATE_DIR = './lib/r_liferay_tool/portlet_service_templates/'
+
+
   PORTLET_XML = './test/portlet.xml'
   TEMP_PORTLET_XML = './test/temp/portlet.xml'
 

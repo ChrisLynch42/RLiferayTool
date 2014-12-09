@@ -1,48 +1,32 @@
+require_relative 'template_utility'
+
 module RLiferayTool
   class PreparePortletService
-    attr_reader :project_name, :project_package, :portlet_xml_file, :xml_utility, :plugin_package_properties_file
+    attr_reader :template_directory, :target_directory, :template_variables
 
-    def initialize(portlet_xml_file, plugin_package_properties_file, project_name, project_package)
-      self.portlet_xml_file=portlet_xml_file
-      self.plugin_package_properties_file=plugin_package_properties_file
-      self.project_name=project_name
-      self.project_package=project_package
-      self.xml_utility = XMLUtility.new(self.portlet_xml_file)
-      update_portlet_xml_content
+    def initialize(template_directory, target_directory, template_variables)
+      self.template_directory=template_directory
+      self.target_directory=target_directory
+      self.template_variables=template_variables
+      update_portlet_xml
       update_plugin_package_properties
     end
 
 
-    def portlet_class_content
-      "mil.army.hrc.ikrome.#{self.project_name.downcase}.PortletController"
-    end
 
-    def plugin_package_properties_text
-      "portal-dependency-jars=\\\n" +
-          "    jstl-api.jar,\\\n" +
-          "    jstl-impl.jar,\\\n" +
-          "    commons-lang.jar\n"
-    end
 
     private
-    attr_writer :project_name, :project_package, :portlet_xml_file, :xml_utility, :plugin_package_properties_file
+    attr_writer :template_directory, :target_directory, :template_variables
 
-    def update_portlet_xml_content
-      portlet_class_node = xml_utility.xml_content.at_xpath('/portlet-app/portlet/portlet-class')
-      portlet_class_node.inner_html = portlet_class_content
-      xml_utility.write_xml_content
+    def update_portlet_xml
+      template_utility = TemplateUtility.new(self.template_directory + '/portlet.xml.erb', self.target_directory, 'portlet.xml', self.template_variables)
     end
 
     def update_plugin_package_properties
-       if File.exist? self.plugin_package_properties_file
-         f = nil
-         begin
-           f = File.open(self.plugin_package_properties_file,"ab")
-           f.write plugin_package_properties_text
-         ensure
-           f.close()
-         end
-       end
+      template_utility = TemplateUtility.new(
+          self.template_directory + '/liferay-plugin-package.properties.erb',
+          self.target_directory, 'liferay-plugin-package.properties',
+          self.template_variables)
     end
 
 

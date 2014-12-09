@@ -14,15 +14,16 @@ module RLiferayTool
     attr_writer :content
 
     def run_erb(template_path, target_name, target_directory, template_variables)
-      write_template_results(target_directory + '/' + target_name,erb_output(template_path,template_variables))
+      target_file_name = target_directory + '/' + target_name
+      if !File.exist?(target_file_name)
+        write_template_results(target_file_name,erb_output(template_path,template_variables))
+      end
     end
 
     def erb_output(template_name,template_variables=Hash.new())
       template_content = load_template(template_name)
       template = ERB.new(template_content)
       template_results = template.result(binding)
-      puts 'xxx'
-      puts template_results
       template_results
     end
 
@@ -34,9 +35,6 @@ module RLiferayTool
     end
 
     def write_template_results(file_name,template_results)
-      if File.exist?(file_name)
-        File.delete(file_name)
-      end
       File.open(file_name,'w') { |file|
         file.write(template_results)
       }

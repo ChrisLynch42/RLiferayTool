@@ -14,7 +14,7 @@
   />
 
   <liferay-ui:search-container-row
-  className="mil.army.hrc.ikrome.model.ChatResponse"
+  className="mil.army.hrc.ikrome.test.model.ChatResponse"
   keyProperty="responseId"
   modelVar="item"
   >

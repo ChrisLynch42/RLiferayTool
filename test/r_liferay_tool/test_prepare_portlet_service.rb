@@ -15,18 +15,24 @@ module RLiferayTool
       clean_up
     end
 
-    def test_update_portlet_xml_content
+    def test_generate_portlet_xml_content
       assert_equal(true,File.exist?(TestFiles::TEMP_PORTLET_XML),"Portlet.xml file is missing.")
       portlet_xml_content = File.read(TestFiles::TEMP_PORTLET_XML)
       assert_equal(true,portlet_xml_content.include?("mil.army.hrc.ikrome.#{@template_variables['project_name']}"),"Portlet xml file content was not updated.")
     end
 
-    def test_update_plugin_package_properties
+    def test_generate_plugin_package_properties
       assert_equal(true,File.exist?(TestFiles::TEMP_PLUGIN_PACKAGE_FILE),"Plugin properites file is missing.")
       properties_content = File.read(TestFiles::TEMP_PLUGIN_PACKAGE_FILE)
       assert_equal(true,properties_content.include?("name=#{@template_variables['project_name']}"),"Plugin properties file content was not updated.")
     end
 
+    def test_generate_view_jsp
+      assert_equal(true,File.exist?(TestFiles::TEMP_VIEW_JSP),"View.jsp file is missing.")
+      properties_content = File.read(TestFiles::TEMP_VIEW_JSP)
+      check_value = "keyProperty=\"responseId\""
+      assert_equal(true,properties_content.include?(check_value),"View.jsp file content was not updated.  #{check_value}")
+    end
 
 
     private

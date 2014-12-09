@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<portlet-app schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
+	<portlet>
+		<portlet-name><%= template_variables['project_name'] %></portlet-name>
+		<display-name><%= template_variables['project_name'] %></display-name>
+		<portlet-class>mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.PortletController</portlet-class>
+		<init-param>
+			<name>view-template</name>
+			<value>/view.jsp</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title><%= template_variables['project_name'] %></title>
+			<short-title><%= template_variables['project_name'] %></short-title>
+			<keywords><%= template_variables['project_name'] %></keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>power-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>user</role-name>
+		</security-role-ref>
+	</portlet>
+</portlet-app>

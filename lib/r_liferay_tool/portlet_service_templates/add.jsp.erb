@@ -1,0 +1,13 @@
+<%%@include file="/init.jsp" %>
+<% type_map = {'String' => 'text', 'int' => 'number', 'long' => 'number'} %>
+<portlet:actionURL name="addItem" var="addItemURL">
+  <portlet:param name="redirect" value="${param.backURL}"/>
+</portlet:actionURL>
+
+<aui:form action="${addItemURL}" method="post" name="newitemfm">
+  <% @template_variables['columns'].each do |column_name, column_value| %>
+      <aui:input type="<%= type_map(column_value) %>" name="<%= column_name %>" label="<%= column_name %>"></aui:input>
+  <% end %>
+  <aui:button type="submit"/>
+  <aui:button type="cancel" onClick="${param.backURL}"/>
+</aui:form>

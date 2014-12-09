@@ -1,0 +1,131 @@
+package mil.army.hrc.ikrome.portlet;
+
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+import java.io.IOException;
+import java.util.List;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.PortletURL;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.model.<%= template_variables['name']%>;
+import mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalServiceUtil;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author zanchimr
+ */
+public class PortletController extends MVCPortlet {
+
+    private static Log _log = LogFactoryUtil.getLog(PortletController.class);
+
+    @Override
+    public void doView(RenderRequest request, RenderResponse response) throws IOException, PortletException {
+        try {
+            List<<%= template_variables['name']%>> allItems = <%= template_variables['name']%>LocalServiceUtil.get<%= template_variables['name'].pluralize%>(QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+            SearchContainer searchContainer = setupSearchContainer(request, response, allItems);
+            request.setAttribute("searchContainer", searchContainer);
+        } catch (SystemException se) {
+            _log.error("System error retrieving list items.", se);
+        }
+        request.setAttribute("currentURL", PortalUtil.getCurrentURL(request));
+        super.doView(request, response);
+    }
+
+    public void addItem(ActionRequest actionRequest, ActionResponse actionResponse) {
+<% @template_variables['columns'].each do |column_name, column_value| %>
+    <%=column_value%> <%=column_name%> = ParamUtil.get<%=column_name.capitalize%>(actionRequest, "<%=column_name%>");
+<% end %>
+        try {
+            <%= template_variables['name']%>LocalServiceUtil.add<%= template_variables['name']%>(
+        <% @template_variables['columns'].each_with_index do |(column_name, column_value), index| %>
+            <%=column_name%><% if index < @template_variables['columns'].size - 1 %>,<%end%>
+        <% end %>);
+        } catch (SystemException se) {
+            _log.error("System exception adding item.", se);
+        } catch (PortalException pe) {
+            _log.error("PortalException adding item", pe);
+        }
+    }
+
+    public void deleteItem(ActionRequest actionRequest, ActionResponse actionResponse) {
+
+        long itemId = ParamUtil.getLong(actionRequest, "item-id");
+        _log.info("Delete Item Id: " + itemId);
+        try {
+            <%= template_variables['name']%>LocalServiceUtil.delete<%= template_variables['name']%>(itemId);
+        } catch (SystemException se) {
+            _log.error("System exception adding item.", se);
+        } catch (PortalException pe) {
+            _log.error("PortalException adding item", pe);
+        }
+    }
+
+    public void updateItem(ActionRequest actionRequest, ActionResponse actionResponse) {
+
+        long itemId = ParamUtil.getInteger(actionRequest, "item-id");
+<% @template_variables['columns'].each do |column_name, column_value| %>
+    <%=column_value%> <%=column_name%> = ParamUtil.get<%=column_value.capitalize%>(actionRequest, "<%=column_name%>");
+<% end %>
+        try {
+            <%= template_variables['name']%> item = <%= template_variables['name']%>LocalServiceUtil.get<%= template_variables['name']%>(itemId);
+<% @template_variables['columns'].each do |column_name, column_value| %>
+    item.set<%=column_name.capitalize%>(<%=column_name%>);
+<% end %>
+<%= template_variables['name']%>LocalServiceUtil.update<%= template_variables['name']%>(item);
+        } catch (SystemException se) {
+            _log.error("System Exception retrieving item" + itemId, se);
+        } catch (PortalException pe) {
+            _log.error("Portal Exception retrieving item" + itemId, pe);
+}
+    }
+
+    private SearchContainer setupSearchContainer(RenderRequest request, RenderResponse response, List allItems) {
+        int currentPage = ParamUtil.getInteger(request, "cur");
+        int delta = ParamUtil.getInteger(request, "delta-param");
+        if (delta == 0) {
+            delta = 5;
+        }
+        PortletURL iteratorURL = response.createRenderURL();
+        iteratorURL.setParameter("delta-param", String.valueOf(delta));
+        SearchContainer<<%= template_variables['name']%>> searchContainer = new SearchContainer<<%= template_variables['name']%>>(request, iteratorURL, null, "No items were found.");
+        searchContainer.setDelta(delta);
+        searchContainer.setDeltaParam("delta-param");
+        int searchStart = getSearchContainerStart(currentPage, delta);
+        int searchEnd = getSearchContainerEnd(currentPage, delta, allItems.size());
+        List<<%= template_variables['name']%>> results = allItems.subList(searchStart, searchEnd);
+        searchContainer.setTotal(allItems.size());
+        searchContainer.setResults(results);
+        return searchContainer;
+    }
+
+    private int getSearchContainerStart(int currentPage, int delta) {
+        int start = 0;
+        if (currentPage > 0) {
+            start = (currentPage - 1) * delta;
+        }
+        return start;
+    }
+
+    private int getSearchContainerEnd(int currentPage, int delta, int total) {
+        int end = getSearchContainerStart(currentPage, delta) + delta;
+        if (end > total) {
+            end = total;
+        }
+        return end;
+    }
+}

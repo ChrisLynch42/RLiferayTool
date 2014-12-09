@@ -1,5 +1,6 @@
 require 'erb'
 
+
 module RLiferayTool
   class TemplateUtility
     attr_accessor :content

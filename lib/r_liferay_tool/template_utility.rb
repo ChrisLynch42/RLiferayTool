@@ -15,9 +15,7 @@ module RLiferayTool
 
     def run_erb(template_path, target_name, target_directory, template_variables)
       target_file_name = target_directory + '/' + target_name
-      if !File.exist?(target_file_name)
-        write_template_results(target_file_name,erb_output(template_path,template_variables))
-      end
+      write_template_results(target_file_name,erb_output(template_path,template_variables))
     end
 
     def erb_output(template_name,template_variables=Hash.new())
@@ -35,9 +33,16 @@ module RLiferayTool
     end
 
     def write_template_results(file_name,template_results)
+      if File.exist?(file_name)
+        backup_file(file_name)
+      end
       File.open(file_name,'w') { |file|
         file.write(template_results)
       }
+    end
+
+    def backup_file(file_name)
+      FileUtils.mv(file_name,file_name + '.' + Time.now.strftime("%Y%m%d%H%M%S%L"), :force => true)
     end
   end
 end

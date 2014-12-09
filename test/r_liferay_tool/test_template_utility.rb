@@ -7,18 +7,12 @@ module RLiferayTool
   class TestTemplateUtility < Minitest::Test
 
     def setup
-      @target_name = 'test_view.jsp'
-      @target_file_name = TestFiles::TEMP_DIR + '/' + @target_name
       clean_up
-      read_service = ReadService.new(TestFiles::SERVICE_XML)
-      @template_variables = read_service.entities[read_service.entities.keys[0]]
-      @template_variables['project_name'] = 'test'
-      @test_object = TemplateUtility.new(TestFiles::VIEW_JSP, @target_name , TestFiles::TEMP_DIR, @template_variables)
-      @test_class_constant = TemplateUtility
+      build_up
     end
 
     def teardown
-      #clean_up
+      clean_up
     end
 
     def test_erb_results
@@ -40,12 +34,30 @@ module RLiferayTool
       end
     end
 
+    def test_file_backup
+      assert_equal(true,File.exist?(@target_file_name),"File #{@target_file_name} was not created.")
+      build_up
+      assert_equal(true,Dir[@target_file_name + '\.[0-9]*'].length > 0, 'Did not find any backed up files.')
+    end
+
 
     private
+
+    def build_up
+      @target_name = 'test_view.jsp'
+      @target_file_name = TestFiles::TEMP_DIR + '/' + @target_name
+      read_service = ReadService.new(TestFiles::SERVICE_XML)
+      @template_variables = read_service.entities[read_service.entities.keys[0]]
+      @template_variables['project_name'] = 'test'
+      @test_object = TemplateUtility.new(TestFiles::VIEW_JSP, @target_name , TestFiles::TEMP_DIR, @template_variables)
+      @test_class_constant = TemplateUtility
+    end
+
+
     def clean_up
-      if File.exist?(@target_file_name)
-        FileUtils.remove(@target_file_name)
-      end
+      Dir[TestFiles::TEMP_DIR + '/*'].each { | file_name |
+        File.delete(file_name)
+      }
     end
 
   end

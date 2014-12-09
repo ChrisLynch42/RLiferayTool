@@ -21,6 +21,8 @@ module RLiferayTool
       entity_nodes.each { | entity_node |
         entity_name = entity_node.attr('name')
         self.entities[entity_name] = Hash.new()
+        self.entities[entity_name]['name'] = entity_name
+        self.entities[entity_name]['primary_key'] = ''
         self.entities[entity_name]['columns'] = Hash.new()
         read_columns(entity_name, entity_node)
       }

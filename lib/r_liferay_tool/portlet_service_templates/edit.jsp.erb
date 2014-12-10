@@ -7,7 +7,7 @@
 <aui:form action="${updateItemURL}" method="post" name="updateitemfm">
   <aui:input type="hidden" name="item-id" value="${param.itemId}"></aui:input>
 
-  <% @template_variables['columns'].each do |column_name, column_value| %>
+  <% template_variables['columns'].each do |column_name, column_value| %>
       <aui:input type="<%= type_map(column_name) %>" name="<%= column_name %>" label="<%= column_name %>" value="${param.<%= column_name %>}"></aui:input>
   <% end %>
   <aui:button type="submit"/>

@@ -47,13 +47,13 @@ public class PortletController extends MVCPortlet {
     }
 
     public void addItem(ActionRequest actionRequest, ActionResponse actionResponse) {
-<% @template_variables['columns'].each do |column_name, column_value| %>
+<% template_variables['columns'].each do |column_name, column_value| %>
     <%=column_value%> <%=column_name%> = ParamUtil.get<%=column_name.capitalize%>(actionRequest, "<%=column_name%>");
 <% end %>
         try {
             <%= template_variables['name']%>LocalServiceUtil.add<%= template_variables['name']%>(
-        <% @template_variables['columns'].each_with_index do |(column_name, column_value), index| %>
-            <%=column_name%><% if index < @template_variables['columns'].size - 1 %>,<%end%>
+        <% template_variables['columns'].each_with_index do |(column_name, column_value), index| %>
+            <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%>
         <% end %>);
         } catch (SystemException se) {
             _log.error("System exception adding item.", se);
@@ -78,12 +78,12 @@ public class PortletController extends MVCPortlet {
     public void updateItem(ActionRequest actionRequest, ActionResponse actionResponse) {
 
         long itemId = ParamUtil.getInteger(actionRequest, "item-id");
-<% @template_variables['columns'].each do |column_name, column_value| %>
+<% template_variables['columns'].each do |column_name, column_value| %>
     <%=column_value%> <%=column_name%> = ParamUtil.get<%=column_value.capitalize%>(actionRequest, "<%=column_name%>");
 <% end %>
         try {
             <%= template_variables['name']%> item = <%= template_variables['name']%>LocalServiceUtil.get<%= template_variables['name']%>(itemId);
-<% @template_variables['columns'].each do |column_name, column_value| %>
+<% template_variables['columns'].each do |column_name, column_value| %>
     item.set<%=column_name.capitalize%>(<%=column_name%>);
 <% end %>
 <%= template_variables['name']%>LocalServiceUtil.update<%= template_variables['name']%>(item);

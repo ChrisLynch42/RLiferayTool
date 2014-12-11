@@ -18,7 +18,7 @@
   keyProperty="<%= template_variables['primary_key'] %>"
   modelVar="item"
   >
-<% template_variables['columns'].each do |column_name, column_value| %>
+<% template_variables['columns'].each do |column_name, column_object| %>
     <liferay-ui:search-container-column-text
     name="<%=column_name  %>"
     property="<%=column_name %>"
@@ -30,7 +30,7 @@
       <liferay-ui:icon-menu >
         <portlet:renderURL var="updateItemURL">
           <portlet:param name="itemId" value="${item.<%= template_variables['primary_key'] %>}" />
-<% template_variables['columns'].each do |column_name, column_value| %>
+<% template_variables['columns'].each do |column_name, column_object| %>
        <portlet:param name="<%=column_name%>" value="${item.<%=column_name%>}" />
 <% end %>
           <portlet:param name="backURL" value="${currentURL}" />

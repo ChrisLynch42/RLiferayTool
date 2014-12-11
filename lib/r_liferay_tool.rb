@@ -18,53 +18,25 @@ class RLiferayTool < Thor
     end
     #puts options[:service_xml_file]
 
-    puts get_service_xml(options[:service_xml_file]).to_s
 
+    read_service = ReadService.new(service_xml_file)
+    @template_variables = read_service.entities[read_service.entities.keys[0]]
+    @template_variables['project_name'] = 'test'
+    @template_variables['project_version'] = '1.00.000'
     if has_error
      return
     else
-      puts 'Do something here'
+
     end
   end
 
 
 
-  desc "prepare_portlet_service", "Add additional files to Liferay portlet service project."
-  method_option :portlet_xml_file, :type => :string, :required => true, :desc => "Specify the location of the portlet.xml file in your project"
-  method_option :project_name, :type => :string, :required => true, :desc => "Specify the name of the project"
-  method_option :project_package, :type => :string, :required => true, :desc => "Specify the package name for the project"
-  def prepare_portlet_service()
-    has_error=false
-
-    # begin
-    #   f = File.open(service_xml_file_location)
-    #   dia_xml = Nokogiri::XML(f)
-    # rescue
-    #   say "Error reading service xml", :red
-    # ensure
-    #   f.close()
-    # end
-
-
-    if has_error
-      return
-    else
-      puts 'Do something here prepare_portlet_service'
-    end
-  end
 
 
 
   private
-  def run_controller(dia_xml,application_options)
-    begin
-      template_controller = RDiaLib::Database::TemplateController.new(dia_xml,application_options)
-      template_controller.execute_template()
-      say "RLiferayTool #{application_options[:model]} Model completed successfully.", :green
-    rescue => error
-      say_error(error)
-    end
-  end
+
 
 
 

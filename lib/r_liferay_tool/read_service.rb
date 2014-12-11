@@ -1,3 +1,4 @@
+require_relative 'column'
 
 module RLiferayTool
   class ReadService
@@ -35,7 +36,7 @@ module RLiferayTool
         if column_node.attr("primary") == 'true'
           self.entities[entity_name]['primary_key'] = column_name
         elsif !IGNORE_COLUMNS.include?(column_name)
-          self.entities[entity_name]['columns'][column_name] = column_node.attr('type')
+          self.entities[entity_name]['columns'][column_name] = Column.new(column_name, column_node.attr('type'))
         end
       }
     end
@@ -44,9 +45,9 @@ module RLiferayTool
         'groupId' => 'long',
         'companyId' => 'long',
         'userId' => 'long',
-        'userName' => 'long',
-        'createDate' => 'long',
-        'modifiedDate' => 'long'
+        'userName' => 'String',
+        'createDate' => 'Date',
+        'modifiedDate' => 'Date'
     }
 
 

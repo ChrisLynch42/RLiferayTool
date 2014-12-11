@@ -11,11 +11,15 @@ class TestFiles
   TEMP_PLUGIN_PACKAGE_FILE = './test/temp/liferay-plugin-package.properties'
 
   TEMP_VIEW_JSP = './test/temp/view.jsp'
-
+  TEMP_INIT_JSP = './test/temp/init.jsp'
+  TEMP_EDIT_JSP = './test/temp/edit.jsp'
+  TEMP_ADD_JSP = './test/temp/add.jsp'
+  TEMP_CONTROLLER = './test/temp/PortletController.java'
 
   SERVICE_XML = './test/service.xml'
 
   VIEW_JSP = './lib/r_liferay_tool/portlet_service_templates/view.jsp.erb'
+  INIT_JSP = './lib/r_liferay_tool/portlet_service_templates/init.jsp.erb'
 
 end
 

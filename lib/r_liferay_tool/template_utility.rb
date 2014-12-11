@@ -1,5 +1,5 @@
 require 'erb'
-
+require 'active_support/all'
 
 module RLiferayTool
   class TemplateUtility

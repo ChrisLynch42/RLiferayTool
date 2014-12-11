@@ -20,7 +20,7 @@ module RLiferayTool
       assert_equal('responseId',@test_object.entities[entity_name]['primary_key'],"Did not find primary key responseId")
       column_name='title'
       assert_equal(true,@test_object.entities[entity_name]['columns'].include?(column_name),"Did not find column #{column_name}")
-      assert_equal('String',@test_object.entities[entity_name]['columns'][column_name],"Did not find column #{column_name}'s type which is String")
+      assert_equal('String',@test_object.entities[entity_name]['columns'][column_name].column_type,"Did not find column #{column_name}'s type which is String")
 
       column_name='companyId'
       assert_equal(false,@test_object.entities[entity_name]['columns'].include?(column_name),"Did not find column #{column_name}")

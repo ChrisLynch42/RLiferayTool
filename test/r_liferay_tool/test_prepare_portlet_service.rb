@@ -34,6 +34,34 @@ module RLiferayTool
       assert_equal(true,properties_content.include?(check_value),"View.jsp file content was not updated.  #{check_value}")
     end
 
+    def test_generate_init_jsp
+      assert_equal(true,File.exist?(TestFiles::TEMP_INIT_JSP),"Init.jsp file is missing.")
+      properties_content = File.read(TestFiles::TEMP_INIT_JSP)
+      check_value = "mil.army.hrc.ikrome.test.service.ChatResponseLocalServiceUtil"
+      assert_equal(true,properties_content.include?(check_value),"Init.jsp file content was not updated.  #{check_value}")
+    end
+
+    def test_generate_edit_jsp
+      assert_equal(true,File.exist?(TestFiles::TEMP_EDIT_JSP),"Edit.jsp file is missing.")
+      properties_content = File.read(TestFiles::TEMP_EDIT_JSP)
+      check_value = 'aui:input type="number" name="createdByUserId" label="createdByUserId" value="${param.createdByUserId}"'
+      assert_equal(true,properties_content.include?(check_value),"Edit.jsp file content was not updated.  #{check_value}")
+    end
+
+    def test_generate_add_jsp
+      assert_equal(true,File.exist?(TestFiles::TEMP_ADD_JSP),"Add.jsp file is missing.")
+      properties_content = File.read(TestFiles::TEMP_ADD_JSP)
+      check_value = 'aui:input type="text" name="firstContent" label="firstContent"'
+      assert_equal(true,properties_content.include?(check_value),"Add.jsp file content was not updated.  #{check_value}")
+    end
+
+    def test_generate_controller
+      assert_equal(true,File.exist?(TestFiles::TEMP_CONTROLLER),"Add.jsp file is missing.")
+      properties_content = File.read(TestFiles::TEMP_CONTROLLER)
+      check_value = 'List<ChatResponse> allItems = ChatResponseLocalServiceUtil.getChatResponses(QueryUtil.ALL_POS, QueryUtil.ALL_POS);'
+      assert_equal(true,properties_content.include?(check_value),"Add.jsp file content was not updated.  #{check_value}")
+    end
+
 
     private
 

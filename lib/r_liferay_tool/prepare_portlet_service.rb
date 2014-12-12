@@ -4,6 +4,11 @@ module RLiferayTool
   class PreparePortletService
     attr_reader :template_directory, :target_directory, :template_variables
 
+    WEB_INF_DIR = '/src/main/webapp/WEB-INF'
+    JSP_DIR = '/src/main/webapp/html'
+    JAVA_DIR = 'src/main/java/mil/army/hrc/ikrome'
+
+
     def initialize(template_directory, target_directory, template_variables)
       self.template_directory=template_directory
       self.target_directory=target_directory
@@ -34,55 +39,75 @@ module RLiferayTool
     end
 
     def generate_portlet_xml
-      template_utility = TemplateUtility.new(self.template_directory + '/portlet.xml.erb', self.target_directory, 'portlet.xml', self.template_variables)
+      template_utility = TemplateUtility.new(self.template_directory + '/portlet.xml.erb', self.target_directory + WEB_INF_DIR, 'portlet.xml', self.template_variables)
     end
 
     def generate_plugin_package_properties
       template_utility = TemplateUtility.new(
           self.template_directory + '/liferay-plugin-package.properties.erb',
-          self.target_directory, 'liferay-plugin-package.properties',
+          self.target_directory + WEB_INF_DIR, 'liferay-plugin-package.properties',
           self.template_variables)
     end
 
-    def generate_view_jsp
+
+    def generate_jsp_files
+      jsp_target = self.target_directory + HTML
+      generate_view_jsp(jsp_target)
+      generate_init_jsp(jsp_target)
+      generate_edit_jsp(jsp_target)
+      generate_add_jsp(jsp_target)
+    end
+
+    def generate_view_jsp(jsp_target)
       template_utility = TemplateUtility.new(
           self.template_directory + '/view.jsp.erb',
-          self.target_directory, 'view.jsp',
+          jsp_target,
+          'view.jsp',
           self.template_variables)
     end
 
-    def generate_init_jsp
+    def generate_init_jsp(jsp_target)
       template_utility = TemplateUtility.new(
           self.template_directory + '/init.jsp.erb',
-          self.target_directory, 'init.jsp',
+          jsp_target,
+          'init.jsp',
           self.template_variables)
     end
 
-    def generate_edit_jsp
+    def generate_edit_jsp(jsp_target)
       template_utility = TemplateUtility.new(
           self.template_directory + '/edit.jsp.erb',
-          self.target_directory, 'edit.jsp',
+          jsp_target,
+          'edit.jsp',
           self.template_variables)
     end
 
-    def generate_add_jsp
+    def generate_add_jsp(jsp_target)
       template_utility = TemplateUtility.new(
           self.template_directory + '/add.jsp.erb',
-          self.target_directory, 'add.jsp',
+          jsp_target,
+          'add.jsp',
           self.template_variables)
     end
 
-    def generate_controller
+
+    def generate_java_files
+      java_target = self.target_directory + JAVA_DIR + "/#{self.template_variables['project_name']}"
+    end
+
+    def generate_controller(java_target)
       template_utility = TemplateUtility.new(
           self.template_directory + '/PortletController.java.erb',
-          self.target_directory, 'PortletController.java',
+          java_target + '/portlet',
+          'PortletController.java',
           self.template_variables)
     end
 
-    def generate_local_impl
+    def generate_local_impl(java_target)
       template_utility = TemplateUtility.new(
           self.template_directory + '/ListItemLocalServiceImpl.java.erb',
-          self.target_directory, 'ListItemLocalServiceImpl.java',
+          java_target + '/service/impl',
+          'ListItemLocalServiceImpl.java',
           self.template_variables)
     end
 

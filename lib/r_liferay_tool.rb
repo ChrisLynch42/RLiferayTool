@@ -17,9 +17,9 @@ class RLiferayTool < Thor
     has_error=false
 
     template_directory = base_directory + '/r_liferay_tool/portlet_service_templates'
-    target_directory = Dir.pwd
+    target_directory = Dir.pwd + "/#{options[:project_name]}/#{options[:project_name]}-portlet"
 
-    service_xml = target_directory + "/#{options[:project_name]}/#{options[:project_name]}-portlet/src/main/webapp/WEB-INF/service.xml"
+    service_xml = target_directory + "/src/main/webapp/WEB-INF/service.xml"
     read_service = ReadService.new(service_xml)
 
     template_variables = read_service.entities[read_service.entities.keys[0]]

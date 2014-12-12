@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative '../test_helper'
-require_relative '../../lib/r_liferay_tool/prepare_portlet_service'
-require_relative '../../lib/r_liferay_tool/read_service'
+require_relative '../../lib/r_liferay_lib/prepare_portlet_service'
+require_relative '../../lib/r_liferay_lib/read_service'
 
 module RLiferayTool
   class TestPreparePortletService < Minitest::Test

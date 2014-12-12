@@ -2,7 +2,7 @@ class TestFiles
 
   TEMP_DIR = './test/temp'
 
-  TEMPLATE_DIR = './lib/r_liferay_tool/portlet_service_templates/'
+  TEMPLATE_DIR = './lib/r_liferay_lib/portlet_service_templates/'
 
 
   PORTLET_XML = './test/portlet.xml'
@@ -18,8 +18,8 @@ class TestFiles
 
   SERVICE_XML = './test/service.xml'
 
-  VIEW_JSP = './lib/r_liferay_tool/portlet_service_templates/view.jsp.erb'
-  INIT_JSP = './lib/r_liferay_tool/portlet_service_templates/init.jsp.erb'
+  VIEW_JSP = './lib/r_liferay_lib/portlet_service_templates/view.jsp.erb'
+  INIT_JSP = './lib/r_liferay_lib/portlet_service_templates/init.jsp.erb'
 
 end
 

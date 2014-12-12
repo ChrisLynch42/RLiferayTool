@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative '../test_helper'
-require_relative '../../lib/r_liferay_tool/read_service'
-require_relative '../../lib/r_liferay_tool/template_utility'
+require_relative '../../lib/r_liferay_lib/read_service'
+require_relative '../../lib/r_liferay_lib/template_utility'
 
 module RLiferayTool
   class TestTemplateUtility < Minitest::Test

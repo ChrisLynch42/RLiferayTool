@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require_relative '../test_helper'
-require_relative '../../lib/r_liferay_tool/xml_utility'
+require_relative '../../lib/r_liferay_lib/xml_utility'
 
 module RLiferayTool
   class TestXMLUtility < Minitest::Test

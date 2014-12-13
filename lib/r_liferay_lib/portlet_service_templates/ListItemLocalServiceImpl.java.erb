@@ -25,15 +25,14 @@ public class <%= template_variables['name']%>LocalServiceImpl extends ListItemLo
      *
      * Never reference this interface directly. Always use {@link mil.army.hrc.ikrome.service.ListItemLocalServiceUtil} to access the list item local service.
      */
-    public <%= template_variables['name']%> add<%= template_variables['name']%>(
-<% template_variables['columns'].each_with_index do |(column_name, column_object), index| %>
-    <%= column_object.column_type %> <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%>
-<% end %>) throws PortalException, SystemException{
-        long itemId = counterLocalService.increment(<%= template_variables['name']%>.class.getName());
-<%= template_variables['name']%> item = <%= template_variables['name']%>Persistence.create(itemId);
-<% template_variables['columns'].each do |column_name, column_object| %>
-    item.set<%=column_name[0,1].capitalize + column_name[1..-1]%>(<%=column_name%>);
-<% end %>
+    public <%= template_variables['name']%> add<%= template_variables['name']%>(<% template_variables['columns'].each_with_index do |(column_name, column_object), index| %>
+      <%= column_object.column_type %> <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%><% end %>
+    ) throws PortalException, SystemException{
+      long itemId = counterLocalService.increment(<%= template_variables['name']%>.class.getName());
+      <%= template_variables['name']%> item = <%= template_variables['name']%>Persistence.create(itemId);
+      <% template_variables['columns'].each do |column_name, column_object| %>
+      item.set<%=column_name[0,1].capitalize + column_name[1..-1]%>(<%=column_name%>);
+      <% end %>
         
         super.add<%= template_variables['name']%>(item);
         return item;

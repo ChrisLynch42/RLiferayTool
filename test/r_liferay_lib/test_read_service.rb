@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require_relative '../test_helper'
 require_relative '../../lib/r_liferay_lib/read_service'
 
-module RLiferayTool
+module RLiferayLib
   class TestReadService < Minitest::Test
 
     def setup

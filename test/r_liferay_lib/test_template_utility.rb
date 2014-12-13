@@ -1,10 +1,15 @@
 require 'minitest/autorun'
 require_relative '../test_helper'
+require_relative 'buildup_mixin'
+require_relative 'cleanup_mixin'
 require_relative '../../lib/r_liferay_lib/read_service'
 require_relative '../../lib/r_liferay_lib/template_utility'
 
-module RLiferayTool
+module RLiferayLib
   class TestTemplateUtility < Minitest::Test
+    include RLiferayLib::CleanupMixin
+    include RLiferayLib::BuildupMixin
+
 
     def setup
       clean_up
@@ -44,6 +49,7 @@ module RLiferayTool
     private
 
     def build_up
+      _build_up
       @target_name = 'test_view.jsp'
       @target_file_name = TestFiles::TEMP_DIR + '/' + @target_name
       read_service = ReadService.new(TestFiles::SERVICE_XML)
@@ -51,13 +57,6 @@ module RLiferayTool
       @template_variables['project_name'] = 'test'
       @test_object = TemplateUtility.new(TestFiles::VIEW_JSP, TestFiles::TEMP_DIR, @target_name , @template_variables)
       @test_class_constant = TemplateUtility
-    end
-
-
-    def clean_up
-      Dir[TestFiles::TEMP_DIR + '/*'].each { | file_name |
-        File.delete(file_name)
-      }
     end
 
   end

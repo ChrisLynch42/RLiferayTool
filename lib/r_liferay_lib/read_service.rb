@@ -1,6 +1,7 @@
 require_relative 'column'
+require_relative 'xml_utility'
 
-module RLiferayTool
+module RLiferayLib
   class ReadService
     attr_reader :service_xml_file, :entities
 

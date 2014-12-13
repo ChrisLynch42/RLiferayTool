@@ -1,19 +1,24 @@
 require 'minitest/autorun'
 require_relative '../test_helper'
+require_relative 'buildup_mixin'
+require_relative 'cleanup_mixin'
 require_relative '../../lib/r_liferay_lib/xml_utility'
 
-module RLiferayTool
+module RLiferayLib
   class TestXMLUtility < Minitest::Test
+    include RLiferayLib::CleanupMixin
+    include RLiferayLib::BuildupMixin
 
     def setup
+      clean_up
+      build_up
       FileUtils.copy_file(TestFiles::PORTLET_XML,TestFiles::TEMP_PORTLET_XML)
       @test_object = XMLUtility.new(TestFiles::TEMP_PORTLET_XML)
       @test_class_constant = XMLUtility
     end
 
     def teardown
-      #FileUtils.remove(TestFiles::TEMP_PORTLET_XML)
-
+      clean_up
     end
 
     def test_read_file_returns_content

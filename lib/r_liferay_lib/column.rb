@@ -1,5 +1,5 @@
 
-module RLiferayTool
+module RLiferayLib
   class Column
     attr_reader :column_name, :column_type
 

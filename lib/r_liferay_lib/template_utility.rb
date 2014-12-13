@@ -1,7 +1,7 @@
 require 'erb'
 require 'active_support/all'
 
-module RLiferayTool
+module RLiferayLib
   class TemplateUtility
     attr_accessor :content
 

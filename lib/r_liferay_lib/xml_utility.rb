@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-module RLiferayTool
+module RLiferayLib
   class XMLUtility
     attr_reader :xml_file_location, :xml_content, :namespaces
 

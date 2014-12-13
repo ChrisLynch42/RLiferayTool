@@ -1,8 +1,8 @@
 require 'thor'
 require 'nokogiri'
 
-require_relative 'r_liferay_tool/prepare_portlet_service'
-require_relative 'r_liferay_tool/read_service'
+require_relative 'r_liferay_lib/prepare_portlet_service'
+require_relative 'r_liferay_lib/read_service'
 
 class RLiferayTool < Thor
   
@@ -16,7 +16,7 @@ class RLiferayTool < Thor
   def update_portlet_service()
     has_error=false
 
-    template_directory = base_directory + '/r_liferay_tool/portlet_service_templates'
+    template_directory = base_directory + '/r_liferay_libportlet_service_templates'
     target_directory = Dir.pwd + "/#{options[:project_name]}/#{options[:project_name]}-portlet"
 
     service_xml = target_directory + "/src/main/webapp/WEB-INF/service.xml"

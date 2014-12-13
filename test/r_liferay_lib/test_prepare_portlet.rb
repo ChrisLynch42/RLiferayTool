@@ -1,10 +1,16 @@
 require 'minitest/autorun'
 require_relative '../test_helper'
+require_relative 'cleanup_mixin'
+require_relative 'buildup_mixin'
 require_relative '../../lib/r_liferay_lib/prepare_portlet_service'
 require_relative '../../lib/r_liferay_lib/read_service'
 
-module RLiferayTool
+module RLiferayLib
   class TestPreparePortletService < Minitest::Test
+    include RLiferayLib::CleanupMixin
+    include RLiferayLib::BuildupMixin
+
+
 
     def setup
       clean_up
@@ -56,31 +62,40 @@ module RLiferayTool
     end
 
     def test_generate_controller
-      assert_equal(true,File.exist?(TestFiles::TEMP_CONTROLLER),"Add.jsp file is missing.")
-      properties_content = File.read(TestFiles::TEMP_CONTROLLER)
+      file_name = @java_portlet_path + '/' + RLiferayLib::PreparePortletService::CONTROLLER_NAME
+      assert_equal(true,File.exist?(file_name),"Controller class file is missing.")
+      properties_content = File.read(file_name)
       check_value = 'List<ChatResponse> allItems = ChatResponseLocalServiceUtil.getChatResponses(QueryUtil.ALL_POS, QueryUtil.ALL_POS);'
-      assert_equal(true,properties_content.include?(check_value),"Add.jsp file content was not updated.  #{check_value}")
+      assert_equal(true,properties_content.include?(check_value),"Controller class file content was not updated.  #{check_value}")
+    end
+
+    def test_generate_local_impl
+      file_name = "#{@java_service_path}/#{@template_variables['name']}#{RLiferayLib::PreparePortletService::LOCAL_IMPL_NAME}"
+      assert_equal(true,File.exist?(file_name),"Local impl class file is missing.")
+      properties_content = File.read(file_name)
+      check_value = "add#{@template_variables['name']}"
+      assert_equal(true,properties_content.include?(check_value),"Local impl class file content was not updated.  #{check_value}")
     end
 
 
-    private
-
     def build_up
-      @target_name = 'test_view.jsp'
-      @target_file_name = TestFiles::TEMP_DIR + '/' + @target_name
+      _build_up
       read_service = ReadService.new(TestFiles::SERVICE_XML)
       @template_variables = read_service.entities[read_service.entities.keys[0]]
+      @template_variables['name'] = read_service.entities.keys[0]
       @template_variables['project_name'] = 'test'
       @template_variables['project_version'] = '1.00.000'
+
+      @java_portlet_path=TestFiles::JAVA_DIR + '/' + @template_variables['project_name'].downcase + '/portlet'
+      @java_service_path=TestFiles::JAVA_DIR + '/' + @template_variables['project_name'].downcase + '/service/impl'
+
+      FileUtils.mkpath(@java_portlet_path)
+      FileUtils.mkpath(@java_service_path)
+
+
       @test_object = PreparePortletService.new(TestFiles::TEMPLATE_DIR, TestFiles::TEMP_DIR , @template_variables)
       @test_class_constant = PreparePortletService
     end
 
-
-    def clean_up
-      Dir[TestFiles::TEMP_DIR + '/*'].each { | file_name |
-        File.delete(file_name)
-      }
-    end
   end
 end

@@ -1,57 +1,54 @@
 require_relative 'template_utility'
 
-module RLiferayTool
+module RLiferayLib
   class PreparePortletService
     attr_reader :template_directory, :target_directory, :template_variables
 
     WEB_INF_DIR = '/src/main/webapp/WEB-INF'
     JSP_DIR = '/src/main/webapp/html'
     JAVA_DIR = 'src/main/java/mil/army/hrc/ikrome'
-
+    PLUGIN_PACKAGE_NAME = 'liferay-plugin-package.properties'
+    PORTLET_XML_NAME = 'portlet.xml'
+    CONTROLLER_NAME = 'PortletController.java'
+    LOCAL_IMPL_NAME = 'LocalServiceImpl.java'
 
     def initialize(template_directory, target_directory, template_variables)
       self.template_directory=template_directory
       self.target_directory=target_directory
       self.template_variables=template_variables
       generate_properties
-      generate_jsps
-      generate_java
+      generate_jsp_files
+      generate_java_files
     end
 
     private
     attr_writer :template_directory, :target_directory, :template_variables
 
-    def generate_jsps
-      generate_view_jsp
-      generate_init_jsp
-      generate_edit_jsp
-      generate_add_jsp
-    end
-
-    def generate_java
-      generate_controller
-      generate_local_impl
-    end
-
     def generate_properties
-      generate_portlet_xml
-      generate_plugin_package_properties
+      target_directory = self.target_directory + WEB_INF_DIR
+      generate_portlet_xml(target_directory)
+      generate_plugin_package_properties(target_directory)
     end
 
-    def generate_portlet_xml
-      template_utility = TemplateUtility.new(self.template_directory + '/portlet.xml.erb', self.target_directory + WEB_INF_DIR, 'portlet.xml', self.template_variables)
+    def generate_portlet_xml(target_directory)
+      template_utility = TemplateUtility.new(
+          self.template_directory + '/portlet.xml.erb',
+          target_directory,
+          PORTLET_XML_NAME,
+          self.template_variables)
     end
 
-    def generate_plugin_package_properties
+    def generate_plugin_package_properties(target_directory)
       template_utility = TemplateUtility.new(
           self.template_directory + '/liferay-plugin-package.properties.erb',
-          self.target_directory + WEB_INF_DIR, 'liferay-plugin-package.properties',
+          target_directory,
+          PLUGIN_PACKAGE_NAME,
           self.template_variables)
     end
 
 
     def generate_jsp_files
-      jsp_target = self.target_directory + HTML
+      jsp_target = self.target_directory + JSP_DIR
       generate_view_jsp(jsp_target)
       generate_init_jsp(jsp_target)
       generate_edit_jsp(jsp_target)
@@ -62,8 +59,7 @@ module RLiferayTool
       template_utility = TemplateUtility.new(
           self.template_directory + '/view.jsp.erb',
           jsp_target,
-          'view.jsp',
-          self.template_variables)
+          'view.jsp', self.template_variables)
     end
 
     def generate_init_jsp(jsp_target)
@@ -92,22 +88,24 @@ module RLiferayTool
 
 
     def generate_java_files
-      java_target = self.target_directory + JAVA_DIR + "/#{self.template_variables['project_name']}"
+      target_directory = self.target_directory + '/' + JAVA_DIR + "/#{self.template_variables['project_name']}"
+      generate_controller(target_directory)
+      generate_local_impl(target_directory)
     end
 
-    def generate_controller(java_target)
+    def generate_controller(target_directory)
       template_utility = TemplateUtility.new(
           self.template_directory + '/PortletController.java.erb',
-          java_target + '/portlet',
-          'PortletController.java',
+          target_directory + '/portlet',
+          CONTROLLER_NAME,
           self.template_variables)
     end
 
-    def generate_local_impl(java_target)
+    def generate_local_impl(target_directory)
       template_utility = TemplateUtility.new(
           self.template_directory + '/ListItemLocalServiceImpl.java.erb',
-          java_target + '/service/impl',
-          'ListItemLocalServiceImpl.java',
+          target_directory + '/service/impl',
+          "#{self.template_variables['name']}" + LOCAL_IMPL_NAME,
           self.template_variables)
     end
 

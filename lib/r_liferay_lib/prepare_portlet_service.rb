@@ -49,6 +49,7 @@ module RLiferayLib
 
     def generate_jsp_files
       jsp_target = self.target_directory + JSP_DIR
+      prepare_directory(jsp_target)
       generate_view_jsp(jsp_target)
       generate_init_jsp(jsp_target)
       generate_edit_jsp(jsp_target)
@@ -89,25 +90,38 @@ module RLiferayLib
 
     def generate_java_files
       target_directory = self.target_directory + '/' + JAVA_DIR + "/#{self.template_variables['project_name']}"
+      prepare_directory(target_directory)
       generate_controller(target_directory)
       generate_local_impl(target_directory)
     end
 
     def generate_controller(target_directory)
+      target_directory = target_directory + '/portlet'
+      prepare_directory(target_directory)
       template_utility = TemplateUtility.new(
           self.template_directory + '/PortletController.java.erb',
-          target_directory + '/portlet',
+          target_directory,
           CONTROLLER_NAME,
           self.template_variables)
     end
 
     def generate_local_impl(target_directory)
+      target_directory = target_directory + '/service/impl'
+      prepare_directory(target_directory)
       template_utility = TemplateUtility.new(
           self.template_directory + '/ListItemLocalServiceImpl.java.erb',
-          target_directory + '/service/impl',
+          target_directory,
           "#{self.template_variables['name']}" + LOCAL_IMPL_NAME,
           self.template_variables)
     end
+
+
+    private
+      def prepare_directory(directory_path)
+        if !Dir.exist? directory_path
+          FileUtils.mkpath directory_path
+        end
+      end
 
   end
 end

@@ -1,28 +1,27 @@
 require 'minitest/autorun'
 require_relative '../test_helper'
+require_relative 'buildup_mixin'
 require_relative 'cleanup_mixin'
 require_relative '../../lib/r_liferay_tool'
 
 module RLiferayLib
   class TestPreparePortletService < Minitest::Test
+    include RLiferayLib::BuildupMixin
+    include RLiferayLib::CleanupMixin
 
     def setup
+      clean_up
+      build_up
     end
 
     def teardown
+      clean_up
     end
 
     def test_command_line
-      arguments = ['--project-version=1.00.000']
-      RLiferayTool.start arguments
+      RLiferayTool.start
     end
 
-
-
-    private
-
-    def build_up
-    end
 
 
   end

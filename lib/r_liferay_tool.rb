@@ -3,6 +3,7 @@ require 'nokogiri'
 
 require_relative 'r_liferay_lib/prepare_portlet_service'
 require_relative 'r_liferay_lib/read_service'
+require_relative 'r_liferay_lib/read_pom'
 
 class RLiferayTool < Thor
   
@@ -21,9 +22,11 @@ class RLiferayTool < Thor
 
     project_name = File.basename(Dir.pwd)
 
+    target_directory = project_name + '-portlet'
+
     pom_file = './pom.xml'
 
-    if !Dir.exist? project_name + '-portlet'
+    if !Dir.exist? target_directory
       has_error = true
       say "You are not in a Liferay portlet service directory.", :red
     end
@@ -35,7 +38,6 @@ class RLiferayTool < Thor
 
 
     template_directory = base_directory + '/r_liferay_lib/portlet_service_templates'
-    target_directory = Dir.pwd + "/#{options[:project_name]}/#{options[:project_name]}-portlet"
 
     service_xml = target_directory + "/src/main/webapp/WEB-INF/service.xml"
 
@@ -51,7 +53,7 @@ class RLiferayTool < Thor
       template_variables = read_service.entities[read_service.entities.keys[0]]
       template_variables['project_name'] = project_name
       template_variables['project_version'] = read_pom.version
-      prepare_portlet_service = PreparePortletService.new(template_directory, target_directory, template_variables)
+      prepare_portlet_service = RLiferayLib::PreparePortletService.new(template_directory, target_directory, template_variables)
     end
   end
 

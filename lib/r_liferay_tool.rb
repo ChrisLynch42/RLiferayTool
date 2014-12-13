@@ -20,14 +20,15 @@ class RLiferayTool < Thor
     base_directory = f = File.expand_path File.dirname(__FILE__)
 
     project_name = File.basename(Dir.pwd)
-    puts project_name
+
+    pom_file = './pom.xml'
 
     if !Dir.exist? project_name + '-portlet'
       has_error = true
       say "You are not in a Liferay portlet service directory.", :red
     end
 
-    if !File.exist? './pom.xml'
+    if !File.exist? pom_file
       has_error = true
       say "You are not in a valid maven project directory.", :red
     end
@@ -44,10 +45,12 @@ class RLiferayTool < Thor
       return
     else
       read_service = RLiferayLib::ReadService.new(service_xml)
+      read_pom = RLiferayLib::ReadPOM.new(pom_file)
+
 
       template_variables = read_service.entities[read_service.entities.keys[0]]
       template_variables['project_name'] = project_name
-      template_variables['project_version'] = options[:project_version]
+      template_variables['project_version'] = read_pom.version
       prepare_portlet_service = PreparePortletService.new(template_directory, target_directory, template_variables)
     end
   end

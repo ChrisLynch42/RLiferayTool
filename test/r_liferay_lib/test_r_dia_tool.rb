@@ -13,6 +13,8 @@ module RLiferayLib
     end
 
     def test_command_line
+      arguments = ['--project-version=1.00.000']
+      RLiferayTool.start arguments
     end
 
 

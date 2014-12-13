@@ -22,6 +22,8 @@ class TestFiles
 
   SERVICE_XML = './test/service.xml'
 
+  POM_XML = './test/pom.xml'
+
   VIEW_JSP = './lib/r_liferay_lib/portlet_service_templates/view.jsp.erb'
   INIT_JSP = './lib/r_liferay_lib/portlet_service_templates/init.jsp.erb'
 

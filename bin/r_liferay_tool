@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
-$LOAD_PATH.unshift File.expand_path('lib')
-$LOAD_PATH.unshift File.expand_path('lib/r_dia_lib')
-$LOAD_PATH.unshift File.expand_path('lib/r_dia_lib/database')
-
-puts File.expand_path('lib')
+source_root = File.expand_path("..", File.dirname(__FILE__))
+$LOAD_PATH.unshift("#{source_root}/lib")
 
 require 'r_liferay_tool'
 

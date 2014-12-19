@@ -1,7 +1,7 @@
-<%%@include file="/init.jsp" %>
+<%%@include file="/html/init.jsp" %>
 
 <portlet:renderURL var="addItemURL">
-  <portlet:param name="jspPage" value="/add.jsp" />
+  <portlet:param name="jspPage" value="/html/add.jsp" />
   <portlet:param name="backURL" value="${currentURL}" />
 </portlet:renderURL>
 
@@ -14,7 +14,7 @@
   />
 
   <liferay-ui:search-container-row
-  className="mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.model.<%= template_variables['name'] %>"
+  className="mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name'] %>"
   keyProperty="<%= template_variables['primary_key'] %>"
   modelVar="item"
   >
@@ -34,7 +34,7 @@
        <portlet:param name="<%=column_name%>" value="${item.<%=column_name%>}" />
 <% end %>
           <portlet:param name="backURL" value="${currentURL}" />
-          <portlet:param name="jspPage" value="/edit.jsp" />
+          <portlet:param name="jspPage" value="/html/edit.jsp" />
         </portlet:renderURL>
         <liferay-ui:icon image="edit" message="edit" url="${updateItemURL}" />
         <portlet:actionURL name="deleteItem" var="deleteItemURL">

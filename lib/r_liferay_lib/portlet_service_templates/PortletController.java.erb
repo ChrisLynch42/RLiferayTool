@@ -1,4 +1,4 @@
-package mil.army.hrc.ikrome.<%= template_variables['project_name'] %>;
+package mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.portlet;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -17,18 +17,9 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.model.<%= template_variables['name']%>;
-import mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalServiceUtil;
+import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name']%>;
+import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author zanchimr
- */
 public class PortletController extends MVCPortlet {
 
     private static Log _log = LogFactoryUtil.getLog(PortletController.class);
@@ -48,7 +39,7 @@ public class PortletController extends MVCPortlet {
 
     public void addItem(ActionRequest actionRequest, ActionResponse actionResponse) {
 <% template_variables['columns'].each do |column_name, column_object| %>
-    <%=column_object.column_type%> <%=column_name%> = ParamUtil.get<%=column_object.column_type.capitalize%>(actionRequest, "<%=column_name%>");
+    <%=column_object.column_type%> <%=column_name%> = ParamUtil.get<%=column_object.getJavaType.capitalize%>(actionRequest, "<%=column_name%>");
 <% end %>
         try {
             <%= template_variables['name']%>LocalServiceUtil.add<%= template_variables['name']%>(
@@ -77,9 +68,9 @@ public class PortletController extends MVCPortlet {
 
     public void updateItem(ActionRequest actionRequest, ActionResponse actionResponse) {
 
-        long itemId = ParamUtil.getInteger(actionRequest, "item-id");
+        long itemId = ParamUtil.getLong(actionRequest, "item-id");
 <% template_variables['columns'].each do |column_name, column_object| %>
-    <%=column_object.column_type%> <%=column_name%> = ParamUtil.get<%=column_object.column_type.capitalize%>(actionRequest, "<%=column_name%>");
+    <%=column_object.column_type%> <%=column_name%> = ParamUtil.get<%=column_object.getJavaType.capitalize%>(actionRequest, "<%=column_name%>");
 <% end %>
         try {
             <%= template_variables['name']%> item = <%= template_variables['name']%>LocalServiceUtil.get<%= template_variables['name']%>(itemId);

@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <portlet-app schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
-		<portlet-name><%= template_variables['project_name'] %></portlet-name>
-		<display-name><%= template_variables['project_name'] %></display-name>
-		<portlet-class>mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.portlet.PortletController</portlet-class>
+		<portlet-name>bob-list</portlet-name>
+		<display-name>bob-list</display-name>
+		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
 		<init-param>
 			<name>view-template</name>
-			<value>/html/view.jsp</value>
+			<value>/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title><%= template_variables['project_name'] %></title>
-			<short-title><%= template_variables['project_name'] %></short-title>
-			<keywords><%= template_variables['project_name'] %></keywords>
+			<title>bob-list</title>
+			<short-title>bob-list</short-title>
+			<keywords>bob-list</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

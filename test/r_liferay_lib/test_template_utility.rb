@@ -17,7 +17,7 @@ module RLiferayLib
     end
 
     def teardown
-      clean_up
+      #clean_up
     end
 
     def test_erb_results

@@ -1,10 +1,12 @@
-package mil.army.hrc.ikrome.service.impl;
+package mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import mil.army.hrc.ikrome.model.ListItem;
-import mil.army.hrc.ikrome.service.ListItemLocalServiceUtil;
-import mil.army.hrc.ikrome.service.base.ListItemServiceBaseImpl;
+import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.base.<%= template_variables['name']%>ServiceBaseImpl;
+import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name']%>;
+
+import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil;
+
 
 /**
  * The implementation of the list item remote service.
@@ -17,19 +19,24 @@ import mil.army.hrc.ikrome.service.base.ListItemServiceBaseImpl;
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see mil.army.hrc.ikrome.service.base.ListItemServiceBaseImpl
- * @see mil.army.hrc.ikrome.service.ListItemServiceUtil
+ * @see mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.base.<%= template_variables['name']%>ServiceBaseImpl
+ * @see mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>ServiceUtil
  */
-public class ListItemServiceImpl extends ListItemServiceBaseImpl {
+public class <%= template_variables['name']%>ServiceImpl extends <%= template_variables['name']%>ServiceBaseImpl {
     /*
      * NOTE FOR DEVELOPERS:
      *
-     * Never reference this interface directly. Always use {@link mil.army.hrc.ikrome.service.ListItemServiceUtil} to access the list item remote service.
+     * Never reference this interface directly. Always use {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>ServiceUtil} to access the list item remote service.
      */
     
-    public ListItem addListItem(String name, String desc, int quantity) throws PortalException, SystemException{
-       
-        return listItemLocalService.addListItem(name, desc, quantity);
+    public <%= template_variables['name']%> add<%= template_variables['name']%>(<% template_variables['columns'].each_with_index do |(column_name, column_object), index| %>
+    <%= column_object.column_type %> <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%><% end %>
+    ) throws PortalException, SystemException{
+        return <%= template_variables['name'][0,1].downcase + template_variables['name'][1..-1]%>LocalService.add<%= template_variables['name']%>(<% template_variables['columns'].each_with_index do |(column_name, column_object), index| %>
+    <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%>
+        <% end %>);
         
     }
+
+
 }

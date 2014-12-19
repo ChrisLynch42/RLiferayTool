@@ -11,6 +11,7 @@ module RLiferayLib
     PORTLET_XML_NAME = 'portlet.xml'
     CONTROLLER_NAME = 'PortletController.java'
     LOCAL_IMPL_NAME = 'LocalServiceImpl.java'
+    REMOTE_IMPL_NAME = 'ServiceImpl.java'
 
     def initialize(template_directory, target_directory, template_variables)
       self.template_directory=template_directory
@@ -89,10 +90,11 @@ module RLiferayLib
 
 
     def generate_java_files
-      target_directory = self.target_directory + '/' + JAVA_DIR + "/#{self.template_variables['project_name']}"
+      target_directory = self.target_directory + '/' + JAVA_DIR + "/#{self.template_variables['project_name'].downcase}"
       prepare_directory(target_directory)
       generate_controller(target_directory)
       generate_local_impl(target_directory)
+      generate_remote_impl(target_directory)
     end
 
     def generate_controller(target_directory)
@@ -112,6 +114,16 @@ module RLiferayLib
           self.template_directory + '/ListItemLocalServiceImpl.java.erb',
           target_directory,
           "#{self.template_variables['name']}" + LOCAL_IMPL_NAME,
+          self.template_variables)
+    end
+
+    def generate_remote_impl(target_directory)
+      target_directory = target_directory + '/service/impl'
+      prepare_directory(target_directory)
+      template_utility = TemplateUtility.new(
+          self.template_directory + '/ListItemServiceImpl.java.erb',
+          target_directory,
+          "#{self.template_variables['name']}" + REMOTE_IMPL_NAME,
           self.template_variables)
     end
 

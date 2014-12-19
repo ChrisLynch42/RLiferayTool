@@ -18,7 +18,7 @@ module RLiferayLib
     end
 
     def teardown
-      clean_up
+      #clean_up
     end
 
     def test_read_file_returns_content

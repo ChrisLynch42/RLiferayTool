@@ -18,7 +18,7 @@ module RLiferayLib
     end
 
     def teardown
-      clean_up
+     # clean_up
     end
 
     def test_generate_portlet_xml_content
@@ -75,6 +75,14 @@ module RLiferayLib
       properties_content = File.read(file_name)
       check_value = "add#{@template_variables['name']}"
       assert_equal(true,properties_content.include?(check_value),"Local impl class file content was not updated.  #{check_value}")
+    end
+
+    def test_generate_remote_impl
+      file_name = "#{@java_service_path}/#{@template_variables['name']}#{RLiferayLib::PreparePortletService::REMOTE_IMPL_NAME}"
+      assert_equal(true,File.exist?(file_name),"Remote impl class file is missing.")
+      properties_content = File.read(file_name)
+      check_value = "add#{@template_variables['name']}"
+      assert_equal(true,properties_content.include?(check_value),"Remote impl class file content was not updated.  #{check_value}")
     end
 
 

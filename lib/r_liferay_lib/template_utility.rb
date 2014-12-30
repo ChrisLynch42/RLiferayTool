@@ -21,7 +21,7 @@ module RLiferayLib
 
     def erb_output(template_name,template_variables=Hash.new())
       template_content = load_template(template_name)
-      template = ERB.new(template_content)
+      template = ERB.new(template_content, nil, '-')
       template_results = template.result(binding)
       template_results
     end

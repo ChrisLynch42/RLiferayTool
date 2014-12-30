@@ -6,14 +6,11 @@ import java.util.Date;
 import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.base.<%= template_variables['name']%>ServiceBaseImpl;
 import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name']%>;
 
-import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil;
-
-
 /**
- * The implementation of the list item remote service.
+ * The implementation of the <%= template_variables['name']%> remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link mil.army.hrc.ikrome.service.ListItemService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>Service} interface.
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
@@ -27,16 +24,18 @@ public class <%= template_variables['name']%>ServiceImpl extends <%= template_va
     /*
      * NOTE FOR DEVELOPERS:
      *
-     * Never reference this interface directly. Always use {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>ServiceUtil} to access the list item remote service.
+     * Never reference this interface directly. Always use {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>ServiceUtil} to access the <%= template_variables['name']%> remote service.
      */
     
-    public <%= template_variables['name']%> add<%= template_variables['name']%>(<% template_variables['columns'].each_with_index do |(column_name, column_object), index| %>
-    <%= column_object.column_type %> <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%><% end %>
+    public <%= template_variables['name']%> add<%= template_variables['name']%>(
+<%- template_variables['columns'].each_with_index do |(column_name, column_object), index| -%>
+        <%= column_object.column_type %> <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%>
+<%- end -%>
     ) throws PortalException, SystemException{
-        return <%= template_variables['name'][0,1].downcase + template_variables['name'][1..-1]%>LocalService.add<%= template_variables['name']%>(<% template_variables['columns'].each_with_index do |(column_name, column_object), index| %><%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%>
-        <% end %>);
-        
+        return <%= template_variables['name'][0,1].downcase + template_variables['name'][1..-1]%>LocalService.add<%= template_variables['name']%>(
+<%- template_variables['columns'].each_with_index do |(column_name, column_object), index| -%>
+            <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%>
+        <%- end -%>
+        );
     }
-
-
 }

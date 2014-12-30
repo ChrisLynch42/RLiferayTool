@@ -6,16 +6,15 @@
 
 <aui:form action="${updateItemURL}" method="post" name="updateitemfm">
   <aui:input type="hidden" name="item-id" value="${param.itemId}"></aui:input>
-
-  <% template_variables['columns'].each do |column_name, column_object| %>
-      <% if column_object.getFormType == 'date' %>
-          <liferay-ui:input-date  dayParam="<%=column_name%>Day" monthParam="<%=column_name%>Month" yearParam="<%=column_name%>Year" dayValue="${param.<%=column_name%>Day}" monthValue="${param.<%=column_name%>Month}" yearValue="${param.<%=column_name%>Year}"/>
-      <% elsif column_object.getFormType == 'checkbox' %>
-          <aui:input type="<%= column_object.getFormType %>" name="<%= column_name %>" label="<%= column_name %>" checked="${param.<%= column_name %>}"></aui:input>
-      <% else %>
-          <aui:input type="<%= column_object.getFormType %>" name="<%= column_name %>" label="<%= column_name %>" value="${param.<%= column_name %>}"></aui:input>
-      <% end %>
-  <% end %>
+  <%- template_variables['columns'].each do |column_name, column_object| -%>
+      <%- if column_object.getFormType == 'date' -%>
+  <liferay-ui:input-date  dayParam="<%=column_name%>Day" monthParam="<%=column_name%>Month" yearParam="<%=column_name%>Year" dayValue="${param.<%=column_name%>Day}" monthValue="${param.<%=column_name%>Month}" yearValue="${param.<%=column_name%>Year}"/>
+      <%- elsif column_object.getFormType == 'checkbox' -%>
+  <aui:input type="<%= column_object.getFormType %>" name="<%= column_name %>" label="<%= column_name %>" checked="${param.<%= column_name %>}"></aui:input>
+      <%- else -%>
+  <aui:input type="<%= column_object.getFormType %>" name="<%= column_name %>" label="<%= column_name %>" value="${param.<%= column_name %>}"></aui:input>
+      <%- end -%>
+  <%- end -%>
   <aui:button type="submit"/>
   <aui:button type="cancel" onClick="${param.backURL}"/>
 </aui:form>

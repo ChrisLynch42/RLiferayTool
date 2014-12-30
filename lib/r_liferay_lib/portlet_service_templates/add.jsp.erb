@@ -3,14 +3,8 @@
   <portlet:param name="redirect" value="${param.backURL}"/>
 </portlet:actionURL>
 
-<aui:form action="${addItemURL}" method="post" name="newitemfm">
-  <% template_variables['columns'].each do |column_name, column_object| %>
-      <% if column_object.getFormType == 'date' %>
-          <liferay-ui:input-date  dayParam="<%=column_name%>day" monthParam="<%=column_name%>month" yearParam="<%=column_name%>year" />
-      <% else %>
-          <aui:input type="<%= column_object.getFormType %>" name="<%= column_name %>" label="<%= column_name %>"></aui:input>
-      <% end %>
-  <% end %>
+<aui:form action="${addItemURL}" method="post" name="newitemfm"><% template_variables['columns'].each do |column_name, column_object| %>
+      <% if column_object.getFormType == 'date' %><liferay-ui:input-date  dayParam="<%=column_name%>day" monthParam="<%=column_name%>month" yearParam="<%=column_name%>year" /><% else %><aui:input type="<%= column_object.getFormType %>" name="<%= column_name %>" label="<%= column_name %>"></aui:input><% end %><% end %>
   <aui:button type="submit"/>
   <aui:button type="cancel" onClick="${param.backURL}"/>
 </aui:form>

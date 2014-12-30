@@ -7,7 +7,7 @@ import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.se
 import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name']%>;
 
 /**
- * The implementation of the list item local service.
+ * The implementation of the <%= template_variables['name']%> local service.
  *
  * <p>
  * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalService} interface.
@@ -24,20 +24,17 @@ public class <%= template_variables['name']%>LocalServiceImpl extends <%= templa
     /*
      * NOTE FOR DEVELOPERS:
      *
-     * Never reference this interface directly. Always use {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalServiceUtil} to access the list item local service.
+     * Never reference this interface directly. Always use {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalServiceUtil} to access the <%= template_variables['name']%> local service.
      */
     public <%= template_variables['name']%> add<%= template_variables['name']%>(<% template_variables['columns'].each_with_index do |(column_name, column_object), index| %>
       <%= column_object.column_type %> <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%><% end %>
     ) throws PortalException, SystemException{
-      long itemId = counterLocalService.increment(<%= template_variables['name']%>.class.getName());
-      <%= template_variables['name']%> item = <%= template_variables['name'][0,1].downcase + template_variables['name'][1..-1]%>Persistence.create(itemId);
-      <% template_variables['columns'].each do |column_name, column_object| %>
-      item.set<%=column_name[0,1].capitalize + column_name[1..-1]%>(<%=column_name%>);
-      <% end %>
-        
+        long itemId = counterLocalService.increment(<%= template_variables['name']%>.class.getName());
+        <%= template_variables['name']%> item = <%= template_variables['name'][0,1].downcase + template_variables['name'][1..-1]%>Persistence.create(itemId);
+      <%- template_variables['columns'].each do |column_name, column_object| -%>
+        item.set<%=column_name[0,1].capitalize + column_name[1..-1]%>(<%=column_name%>);
+      <%- end -%>
         super.add<%= template_variables['name']%>(item);
         return item;
-        
     }
-    
 }

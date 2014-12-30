@@ -3,13 +3,16 @@ Gem::Specification.new do |s|
   s.version     = '0.0.1'
   s.date        = '2013-12-17'
   s.add_development_dependency 'rspec', '~> 2.14'
+  s.add_runtime_dependency 'nokogiri', '~> 1.6'
+  s.add_runtime_dependency 'activesupport', '~> 3.2'
+  s.add_runtime_dependency 'thor', '~> 0.17'
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
   s.executables << 'r_liferay_tool'
 
-  s.summary     = "A tool to generate Rails MVC code from Dia database diagram."
-  s.description = "Generates Rails MVC code from Dia database diagram.  This can be done continuously throughout the development cycle.  Models, Controllers, Routes and Views can be customized.  Updates can be made to the database diagram and RLiferayTool will update the Models, Controllers and Routes without corrupting the customizations.  Views are a all or nothing proposition.  You must either use the generated code or a custom view."
+  s.summary     = "A tool to generate opinionated code for a Liferay maven portlet-service project."
+  s.description = "A tool to generate opinionated code for a Liferay maven portlet-service project.  You must be in the root folder of the Liferay Maven Portlet-Service project."
   s.authors     = ["Chris Lynch"]
   s.email       = 'chrislynch42@yahoo.com'
   s.files       = ["lib/r_liferay_tool.rb"]

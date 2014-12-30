@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.summary     = "A tool to generate opinionated code for a Liferay maven portlet-service project."
   s.description = "A tool to generate opinionated code for a Liferay maven portlet-service project.  You must be in the root folder of the Liferay Maven Portlet-Service project."
-  s.authors     = ["Chris Lynch"]
+  s.authors     = ["Chris Lynch, Mike Zanchi"]
   s.email       = 'chrislynch42@yahoo.com'
   s.files       = ["lib/r_liferay_tool.rb"]
   s.homepage    = 'https://github.com/ChrisLynch42/RLiferayTool'

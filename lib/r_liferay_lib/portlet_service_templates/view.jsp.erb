@@ -21,8 +21,12 @@
 <% template_variables['columns'].each do |column_name, column_object| %>
     <liferay-ui:search-container-column-text
     name="<%=column_name  %>"
+    <% if column_object.column_type == 'Date' %> ><fmt:formatDate type="date" value="${item.<%=column_name%>}" /></liferay-ui:search-container-column-text>
+    <% else %>
     property="<%=column_name %>"
     />
+    <% end %>
+
 <% end %>
       <liferay-ui:search-container-column-text
     name="actions"
@@ -31,7 +35,16 @@
         <portlet:renderURL var="updateItemURL">
           <portlet:param name="itemId" value="${item.<%= template_variables['primary_key'] %>}" />
 <% template_variables['columns'].each do |column_name, column_object| %>
+              <% if column_object.column_type == 'Date' %>
+                  <fmt:formatDate value="${item.<%=column_name%>}" pattern="MM" var="<%=column_name%>m"/>
+                  <portlet:param name="<%=column_name%>Month" value="${<%=column_name%>m -1}" />
+                  <fmt:formatDate value="${item.<%=column_name%>}" pattern="dd" var="<%=column_name%>d"/>
+                  <portlet:param name="<%=column_name%>Day" value="${<%=column_name%>d}" />
+                  <fmt:formatDate value="${item.<%=column_name%>}" pattern="yyyy" var="<%=column_name%>y" />
+                  <portlet:param name="<%=column_name%>Year" value="${<%=column_name%>y}" />
+                  <% else %>
        <portlet:param name="<%=column_name%>" value="${item.<%=column_name%>}" />
+                  <%end%>
 <% end %>
           <portlet:param name="backURL" value="${currentURL}" />
           <portlet:param name="jspPage" value="/html/edit.jsp" />

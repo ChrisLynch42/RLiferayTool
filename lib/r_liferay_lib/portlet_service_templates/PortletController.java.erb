@@ -11,6 +11,9 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 import java.io.IOException;
 import java.util.List;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -38,8 +41,13 @@ public class PortletController extends MVCPortlet {
     }
 
     public void addItem(ActionRequest actionRequest, ActionResponse actionResponse) {
+
 <% template_variables['columns'].each do |column_name, column_object| %>
+    <% if column_object.column_type == 'Date' %>
+       Date <%=column_name%> = parseDateFromRequest(actionRequest, "<%=column_name%>");
+    <% else %>
     <%=column_object.column_type%> <%=column_name%> = ParamUtil.get<%=column_object.getJavaType.capitalize%>(actionRequest, "<%=column_name%>");
+    <% end %>
 <% end %>
         try {
             <%= template_variables['name']%>LocalServiceUtil.add<%= template_variables['name']%>(
@@ -70,7 +78,11 @@ public class PortletController extends MVCPortlet {
 
         long itemId = ParamUtil.getLong(actionRequest, "item-id");
 <% template_variables['columns'].each do |column_name, column_object| %>
-    <%=column_object.column_type%> <%=column_name%> = ParamUtil.get<%=column_object.getJavaType.capitalize%>(actionRequest, "<%=column_name%>");
+    <% if column_object.column_type == 'Date' %>
+        Date <%=column_name%> = parseDateFromRequest(actionRequest, "<%=column_name%>");
+    <% else %>
+        <%=column_object.column_type%> <%=column_name%> = ParamUtil.get<%=column_object.getJavaType.capitalize%>(actionRequest, "<%=column_name%>");
+    <% end %>
 <% end %>
         try {
             <%= template_variables['name']%> item = <%= template_variables['name']%>LocalServiceUtil.get<%= template_variables['name']%>(itemId);
@@ -118,5 +130,17 @@ public class PortletController extends MVCPortlet {
             end = total;
         }
         return end;
+    }
+
+    private Date parseDateFromRequest(ActionRequest actionRequest, String fieldName){
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString= ParamUtil.getString(actionRequest, fieldName+"Day")+"/"+(ParamUtil.getInteger(actionRequest, fieldName + "Month") +1) +"/"+ParamUtil.getString(actionRequest, fieldName+"Year");
+        Date resultDate = new Date();
+        try{
+            resultDate = dateFormatter.parse(dateString);
+        }catch(ParseException pe){
+            _log.error("Error parsing date for: " + fieldName);
+        }
+        return resultDate;
     }
 }

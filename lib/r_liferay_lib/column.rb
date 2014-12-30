@@ -20,8 +20,8 @@ module RLiferayLib
 
     attr_writer :column_name, :column_type
 
-    FORM_TYPE_MAP = {'String' => 'text', 'int' => 'number', 'long' => 'number', 'Date' => 'date'}
-    JAVA_TYPE_MAP = {'String' => 'String', 'int' => 'Integer', 'long' => 'long', 'Date' => 'date'}
+    FORM_TYPE_MAP = {'String' => 'text', 'int' => 'number', 'long' => 'number', 'Date' => 'date', 'boolean' => 'checkbox'}
+    JAVA_TYPE_MAP = {'String' => 'String', 'int' => 'Integer', 'long' => 'long', 'Date' => 'date', 'boolean' => 'Boolean'}
 
   end
 end

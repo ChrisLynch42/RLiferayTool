@@ -103,17 +103,15 @@ Test
 │   └── src
 │       └── main
 │           ├── java
-│           │   └── mil
-│           │       └── army
-│           │           └── hrc
-│           │               └── ikrome
-│           │                   └── test
-│           │                       ├── portlet
-│           │                       │   └── PortletController.java
-│           │                       └── service
-│           │                           └── impl
-│           │                               ├── FooLocalServiceImpl.java
-│           │                               └── FooServiceImpl.java
+│           │   └── com
+│           │       └── example
+│           │           └── test
+│           │               ├── portlet
+│           │               │   └── PortletController.java
+│           │               └── service
+│           │                   └── impl
+│           │                       ├── FooLocalServiceImpl.java
+│           │                       └── FooServiceImpl.java
 │           ├── resources
 │           │   └── portlet.properties
 │           └── webapp
@@ -131,12 +129,13 @@ Test
 │               └── WEB-INF
 │                   ├── liferay-display.xml
 │                   ├── liferay-plugin-package.properties
-│                   ├── liferay-plugin-package.properties.20141231194058256
+│                   ├── liferay-plugin-package.properties.20141231215054153
 │                   ├── liferay-portlet.xml
 │                   ├── portlet.xml
-│                   ├── portlet.xml.20141231194058255
+│                   ├── portlet.xml.20141231215054153
 │                   ├── service.xml
 │                   └── web.xml
 └── Test-portlet-service
     └── pom.xml
+
 ```

@@ -9,6 +9,8 @@ The current version of the tool only supports Maven plugin 6.2.10.9 and the Life
 
 To install RLiferayTool you will need to install Ruby and them install the "RLiferayTool" gem.  The tool has a few dependencies and those will be installed as well.
 
+<h2>Maven</h2>
+
 The maven command to generate a Liferay ServiceBuilder project is below.  If you download the example project you do not need to perform this step.
 
 ```
@@ -22,5 +24,7 @@ Test/
 ├── Test-portlet
 └── Test-portlet-service
 ~~~
+
+<h2>Run</h2>
 
 Move into the Test directory and run the "r_liferay_tool" command.

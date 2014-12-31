@@ -58,3 +58,8 @@ To learn how to define entities in a service.xml file go to the Liferay Develope
 <h2>Run</h2>
 
 Move into the Test directory and run the "r_liferay_tool" command.
+
+<h2>What just happened?</h2>
+
+The tool reads the pom file of the Maven project along with the service.xml file and generates code to Display information from the entity/table and CRUD functionality.  If the files already exist it will backup the existing file.
+

@@ -4,6 +4,11 @@ Utility to speed up Liferay development.  This tool is for use in a Liferay proj
 
 The current version of the tool only supports Maven plugin 6.2.10.9 and the Liferay servicebuilder archetype.  Liferay Maven plugins require you to have a parent pom.  If you do not already have a parent pom you can download an example project from https://github.com/ChrisLynch42/RLiferayTool_Examples.
 
+
+<h2>Install</h2>
+
+To install RLiferayTool you will need to install Ruby and them install the "RLiferayTool" gem.  The tool has a few dependencies and those will be installed as well.
+
 The maven command to generate a Liferay ServiceBuilder project is below.  If you download the example project you do not need to perform this step.
 
 ```

@@ -17,6 +17,18 @@ Test/
 │                   ├── service.xml
 ```
 
+<h2>How to use overview</h2>
+To use this tool requires the use of Maven Liferay Plugin and RLiferayTool.
+<ol>
+  <li>Determine name, version, group id and package name of project</li>
+  <li>Acquire a Maven parent pom</li>
+  <li>Place parent pom in directory you wish to generate Liferay ServiceBuilder project</li>
+  <li>Run Maven command as show below in the "Maven" section</li>
+  <li>Edit the <project name>/<project name>-portlet/src/main/webapp/WEB-INF/service.xml file.</li>
+  <li>Go into the <project name> directory and run "r_liferay_tool"</li>
+</ol>
+
+
 
 <h2>Install</h2>
 

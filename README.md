@@ -21,7 +21,7 @@ Test/
 To use this tool requires the use of Maven Liferay Plugin and RLiferayTool.
 <ol>
   <li>Determine name, version, group id and package name of project</li>
-  <li>Acquire a Maven parent pom</li>
+  <li>Acquire a Maven parent pom  https://github.com/ChrisLynch42/RLiferayTool_Examples.</li>
   <li>Place parent pom in directory you wish to generate Liferay ServiceBuilder project</li>
   <li>Run Maven command as show below in the "Maven" section</li>
   <li>Edit the <project name>/<project name>-portlet/src/main/webapp/WEB-INF/service.xml file.</li>
@@ -63,3 +63,80 @@ Move into the Test directory and run the "r_liferay_tool" command.
 
 The tool reads the pom file of the Maven project along with the service.xml file and generates code to Display information from the entity/table and CRUD functionality.  If the files already exist it will backup the existing file.
 
+Initial Maven project before using RLiferayTool
+
+```
+Test/
+├── pom.xml
+├── Test-portlet
+│   ├── pom.xml
+│   └── src
+│       └── main
+│           ├── java
+│           ├── resources
+│           │   └── portlet.properties
+│           └── webapp
+│               ├── css
+│               │   └── main.css
+│               ├── icon.png
+│               ├── js
+│               │   └── main.js
+│               ├── view.jsp
+│               └── WEB-INF
+│                   ├── liferay-display.xml
+│                   ├── liferay-plugin-package.properties
+│                   ├── liferay-portlet.xml
+│                   ├── portlet.xml
+│                   ├── service.xml
+│                   └── web.xml
+└── Test-portlet-service
+    └── pom.xml
+```
+
+The same project after using RLiferayTool in the Test directory.
+
+```
+Test
+├── pom.xml
+├── Test-portlet
+│   ├── pom.xml
+│   └── src
+│       └── main
+│           ├── java
+│           │   └── mil
+│           │       └── army
+│           │           └── hrc
+│           │               └── ikrome
+│           │                   └── test
+│           │                       ├── portlet
+│           │                       │   └── PortletController.java
+│           │                       └── service
+│           │                           └── impl
+│           │                               ├── FooLocalServiceImpl.java
+│           │                               └── FooServiceImpl.java
+│           ├── resources
+│           │   └── portlet.properties
+│           └── webapp
+│               ├── css
+│               │   └── main.css
+│               ├── html
+│               │   ├── add.jsp
+│               │   ├── edit.jsp
+│               │   ├── init.jsp
+│               │   └── view.jsp
+│               ├── icon.png
+│               ├── js
+│               │   └── main.js
+│               ├── view.jsp
+│               └── WEB-INF
+│                   ├── liferay-display.xml
+│                   ├── liferay-plugin-package.properties
+│                   ├── liferay-plugin-package.properties.20141231194058256
+│                   ├── liferay-portlet.xml
+│                   ├── portlet.xml
+│                   ├── portlet.xml.20141231194058255
+│                   ├── service.xml
+│                   └── web.xml
+└── Test-portlet-service
+    └── pom.xml
+```

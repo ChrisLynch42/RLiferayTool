@@ -4,6 +4,19 @@ Utility to speed up Liferay development.  This tool is for use in a Liferay proj
 
 The current version of the tool only supports Maven plugin 6.2.10.9 and the Liferay servicebuilder archetype.  Liferay Maven plugins require you to have a parent pom.  If you do not already have a parent pom you can download an example project from https://github.com/ChrisLynch42/RLiferayTool_Examples.
 
+It only generates code to handle CRUD for a single table as defined in the service.xml.
+
+```
+Test/
+├── Test-portlet
+│   ├── pom.xml
+│   └── src
+│       └── main
+│           └── webapp
+│               └── WEB-INF
+│                   ├── service.xml
+```
+
 
 <h2>Install</h2>
 

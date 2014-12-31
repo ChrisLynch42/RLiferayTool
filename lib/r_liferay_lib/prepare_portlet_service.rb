@@ -6,7 +6,7 @@ module RLiferayLib
 
     WEB_INF_DIR = '/src/main/webapp/WEB-INF'
     JSP_DIR = '/src/main/webapp/html'
-    JAVA_DIR = '/src/main/java/' + self.template_variables['project_package'].gsub('.' ,'/' )
+    JAVA_DIR = '/src/main/java/'
     PLUGIN_PACKAGE_NAME = 'liferay-plugin-package.properties'
     PORTLET_XML_NAME = 'portlet.xml'
     CONTROLLER_NAME = 'PortletController.java'
@@ -90,7 +90,7 @@ module RLiferayLib
 
 
     def generate_java_files
-      target_directory = self.target_directory + '/' + JAVA_DIR + "/#{self.template_variables['project_name'].downcase}"
+      target_directory = self.target_directory + '/' + JAVA_DIR  + self.template_variables['project_package'].gsub('.' ,'/' )+ "/#{self.template_variables['project_name'].downcase}"
       prepare_directory(target_directory)
       generate_controller(target_directory)
       generate_local_impl(target_directory)

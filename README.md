@@ -50,6 +50,11 @@ Test/
 └── Test-portlet-service
 ~~~
 
+<h2>Service.xml</h2>
+
+To learn how to define entities in a service.xml file go to the Liferay Developer documentation.  http://www.liferay.com/documentation/liferay-portal/6.2/development/-/ai/define-your-object-relational-map-liferay-portal-6-2-dev-guide-04--1
+
+
 <h2>Run</h2>
 
 Move into the Test directory and run the "r_liferay_tool" command.

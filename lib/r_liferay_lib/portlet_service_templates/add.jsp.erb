@@ -4,9 +4,13 @@
 </portlet:actionURL>
 
 <aui:form action="${addItemURL}" method="post" name="newitemfm">
+  <jsp:useBean id="date" class="java.util.Date"/>
+  <fmt:formatDate value="${date}" pattern="MM" var="month"/>
+  <fmt:formatDate value="${date}" pattern="dd" var="day"/>
+  <fmt:formatDate value="${date}" pattern="yyyy" var="year" />
   <%- template_variables['columns'].each do |column_name, column_object| -%>
       <%- if column_object.getFormType == 'date' -%>
-    <liferay-ui:input-date  dayParam="<%=column_name%>Day" monthParam="<%=column_name%>Month" yearParam="<%=column_name%>Year" />
+    <liferay-ui:input-date  dayParam="<%=column_name%>Day" monthParam="<%=column_name%>Month" yearParam="<%=column_name%>Year" dayValue="${day}" monthValue="${month-1}" yearValue="${year}"/>
       <%- else -%>
     <aui:input type="<%= column_object.getFormType %>" name="<%= column_name %>" label="<%= column_name %>"></aui:input>
           <%- end -%>

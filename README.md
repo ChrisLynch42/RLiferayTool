@@ -9,5 +9,13 @@ The maven command to generate a Liferay ServiceBuilder project is below.  If you
 ```
 mvn archetype:generate -DarchetypeArtifactId=liferay-servicebuilder-archetype -DarchetypeGroupId=com.liferay.maven.archetypes -DarchetypeVersion=6.2.10.9 -DgroupId=com.example -DartifactId=Test -Dversion=1.00.000 -DpackageName=com.example -DinteractiveMode=false
 ```
+In this example it should create a folder called "Test" with the following structure
 
+~~~
+Test/
+├── pom.xml
+├── Test-portlet
+└── Test-portlet-service
+~~~
 
+Move into the Test directory and run the "r_liferay_tool" command.

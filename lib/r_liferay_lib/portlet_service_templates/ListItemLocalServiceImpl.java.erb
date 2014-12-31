@@ -1,30 +1,30 @@
-package mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.impl;
+package <%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import java.util.Date;
-import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.base.<%= template_variables['name']%>LocalServiceBaseImpl;
-import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name']%>;
+import <%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.service.base.<%= template_variables['name']%>LocalServiceBaseImpl;
+import <%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name']%>;
 
 /**
  * The implementation of the <%= template_variables['name']%> local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link <%= template_variables['project_package'] %>.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalService} interface.
  *
  * <p>
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.base.<%= template_variables['name']%>LocalServiceBaseImpl
- * @see mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil
+ * @see <%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.service.base.<%= template_variables['name']%>LocalServiceBaseImpl
+ * @see <%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil
  */
 public class <%= template_variables['name']%>LocalServiceImpl extends <%= template_variables['name']%>LocalServiceBaseImpl {
     /*
      * NOTE FOR DEVELOPERS:
      *
-     * Never reference this interface directly. Always use {@link mil.army.hrc.ikrome.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalServiceUtil} to access the <%= template_variables['name']%> local service.
+     * Never reference this interface directly. Always use {@link <%= template_variables['project_package'] %>.<%= template_variables['project_name'] %>.service.<%= template_variables['name']%>LocalServiceUtil} to access the <%= template_variables['name']%> local service.
      */
     public <%= template_variables['name']%> add<%= template_variables['name']%>(<% template_variables['columns'].each_with_index do |(column_name, column_object), index| %>
       <%= column_object.column_type %> <%=column_name%><% if index < template_variables['columns'].size - 1 %>,<%end%><% end %>

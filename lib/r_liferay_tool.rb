@@ -53,6 +53,7 @@ class RLiferayTool < Thor
       template_variables = read_service.entities[read_service.entities.keys[0]]
       template_variables['project_name'] = project_name
       template_variables['project_version'] = read_pom.version
+      template_variables['project_package'] = read_pom.package
       prepare_portlet_service = RLiferayLib::PreparePortletService.new(template_directory, target_directory, template_variables)
     end
   end

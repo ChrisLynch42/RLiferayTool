@@ -7,6 +7,6 @@
 <%%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 <%%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
-<%%@ page import="mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil" %>
+<%%@ page import="<%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil" %>
 
 <portlet:defineObjects />

@@ -3,7 +3,7 @@
 	<portlet>
 		<portlet-name><%= template_variables['project_name'] %></portlet-name>
 		<display-name><%= template_variables['project_name'] %></display-name>
-		<portlet-class>mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.portlet.PortletController</portlet-class>
+		<portlet-class><%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.portlet.PortletController</portlet-class>
 		<init-param>
 			<name>view-template</name>
 			<value>/html/view.jsp</value>

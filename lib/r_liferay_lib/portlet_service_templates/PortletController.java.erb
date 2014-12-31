@@ -1,4 +1,4 @@
-package mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.portlet;
+package <%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.portlet;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -20,8 +20,8 @@ import javax.portlet.PortletException;
 import javax.portlet.PortletURL;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name']%>;
-import mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil;
+import <%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name']%>;
+import <%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.service.<%= template_variables['name']%>LocalServiceUtil;
 
 public class PortletController extends MVCPortlet {
 

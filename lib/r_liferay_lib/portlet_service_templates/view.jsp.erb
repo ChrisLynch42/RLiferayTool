@@ -14,7 +14,7 @@
   />
 
   <liferay-ui:search-container-row
-  className="mil.army.hrc.ikrome.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name'] %>"
+  className="<%= template_variables['project_package'] %>.<%= template_variables['project_name'].downcase %>.model.<%= template_variables['name'] %>"
   keyProperty="<%= template_variables['primary_key'] %>"
   modelVar="item"
   >

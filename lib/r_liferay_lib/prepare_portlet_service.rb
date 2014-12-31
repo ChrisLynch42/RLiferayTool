@@ -6,7 +6,7 @@ module RLiferayLib
 
     WEB_INF_DIR = '/src/main/webapp/WEB-INF'
     JSP_DIR = '/src/main/webapp/html'
-    JAVA_DIR = 'src/main/java/mil/army/hrc/ikrome'
+    JAVA_DIR = '/src/main/java/' + self.template_variables['project_package'].gsub('.' ,'/' )
     PLUGIN_PACKAGE_NAME = 'liferay-plugin-package.properties'
     PORTLET_XML_NAME = 'portlet.xml'
     CONTROLLER_NAME = 'PortletController.java'

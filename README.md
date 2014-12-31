@@ -1,6 +1,6 @@
 RLiferayTool
 ============
-Utility to speed up Liferay development.  This tool is for use in a Liferay project generated from maven.  It generates code in Liferay project to encourage consistent design.
+Utility to speed up Liferay development.  This tool is for use in a Liferay project generated from maven.  It generates code in Liferay project to encourage consistent design.  While the tool works it is still in the Alpha stage of development.
 
 The current version of the tool only supports Maven plugin 6.2.10.9 and the Liferay servicebuilder archetype.  Liferay Maven plugins require you to have a parent pom.  If you do not already have a parent pom you can download an example project from https://github.com/ChrisLynch42/RLiferayTool_Examples.
 

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'RLiferayTool'
-  s.version     = '0.0.3'
+  s.version     = '0.0.4'
   s.date        = '2013-12-17'
   s.add_development_dependency 'rspec', '~> 2.14'
   s.add_development_dependency 'minitest', '~> 5.0'

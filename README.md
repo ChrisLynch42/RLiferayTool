@@ -26,6 +26,8 @@ To use this tool requires the use of Maven Liferay Plugin and RLiferayTool.
   <li>Run Maven command as show below in the "Maven" section</li>
   <li>Edit the <project name>/<project name>-portlet/src/main/webapp/WEB-INF/service.xml file.</li>
   <li>Go into the <project name> directory and run "r_liferay_tool"</li>
+  <li>Run the "mvn liferay:build-service" command</li>
+  <li>Run the "mvn clean package" command</li>
 </ol>
 
 
